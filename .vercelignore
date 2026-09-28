@@ -1,0 +1,17 @@
+# Keeps `npx vercel` CLI uploads to what GitHub deploys (the CLI does not read .gitignore).
+node_modules
+dist
+.env
+.env.*
+.DS_Store
+tsconfig.tsbuildinfo
+validation
+reference
+/1000106960.png
+/Geetesh_Linkedin_Photo.jpg
+/CHATBOT_KNOWLEDGE_ANSWERED_DRAFT*
+/Logos_Geetesh
+/public/images/about-me-disc.jpg
+/public/images/about-me-hero.jpg
+/public/images/about-me-portrait.jpg
+/public/logos/ansr-mono.svg
