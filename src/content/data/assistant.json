@@ -3,10 +3,10 @@
   "greeting": "Ask anything about my work, background or how I think. An AI answers.",
   "placeholder": "Ask a question…",
   "suggestions": [
-    "Summarise his career in 30 seconds",
-    "Why marketing and code?",
+    "What does he do at ANSR?",
     "What has he built himself?",
-    "Is he open to new roles?"
+    "How did he get into ABM?",
+    "What’s his technical background?"
   ],
   "ui": {
     "note": "AI · may be imperfect",

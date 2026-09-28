@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { useLocation } from 'react-router';
-import { projects, projectUrl, site } from '../content/projects';
+import { projects, projectUrl } from '../content/projects';
 import { useTransition } from '../app/Transition';
 import { galleryNav, night, session } from '../app/session';
 import { HoverText } from './HoverText';
 import { AskDialog } from './AskChat';
-import { ui, fill } from '../content/ui';
+import { ui } from '../content/ui';
 
 export function Nav() {
   const { go } = useTransition();
@@ -44,13 +44,8 @@ export function Nav() {
   };
 
   return (
-    <nav className="nav" ref={ref} data-open={open} aria-label="Primary">
+    <nav className="nav" ref={ref} data-open={open} data-notch={!onGallery} aria-label="Primary">
       <ul className="nav__list">
-        <li>
-          <a href="/" className="nav__mark" aria-label={fill(ui.nav.homeLabel, { name: site.name })} onClick={(e) => { e.preventDefault(); if (!onGallery) go('/', 'from-detail'); }} data-hover="">
-            <HoverText text={site.mark} />
-          </a>
-        </li>
         <li>
           <a href="/" className="nav__link" data-current={onGallery} aria-current={onGallery ? 'page' : undefined} onClick={(e) => { e.preventDefault(); if (!onGallery) go('/', 'from-detail'); }} data-hover="">
             <HoverText text={ui.nav.work} />

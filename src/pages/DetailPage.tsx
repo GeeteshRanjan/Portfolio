@@ -119,21 +119,21 @@ export function DetailPage() {
         gsap.set(st.lines, { yPercent: 120 });
         gsap.set(items, { yPercent: 120 });
         gsap.set(rules, { scaleX: 0, transformOrigin: 'left center' });
-        gsap.set(buttons, { scale: 0.6, autoAlpha: 0 });
+        if (buttons.length) gsap.set(buttons, { scale: 0.6, autoAlpha: 0 });
         gsap.set(corners, { scale: 0 });
         const tl = gsap.timeline({ delay: session.arrival === 'load' ? 0.1 : 0.05 });
         tl.fromTo(main, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6, ease: 'main' }, 0);
         tl.to(st.lines, { yPercent: 0, duration: 0.7, ease: EASE.glide, stagger: 0.08 }, 0.05);
         tl.to(rules, { scaleX: 1, duration: 0.9, ease: EASE.glide, stagger: 0.06 }, 0.08);
         tl.to(items, { yPercent: 0, duration: 0.7, ease: EASE.glide, stagger: 0.03 }, 0.12);
-        tl.to(buttons, { scale: 1, autoAlpha: 1, duration: 0.5, ease: 'back.out(2.2)', stagger: 0.09 }, 0.38);
+        if (buttons.length) tl.to(buttons, { scale: 1, autoAlpha: 1, duration: 0.5, ease: 'back.out(2.2)', stagger: 0.09 }, 0.38);
         tl.to(corners, { scale: 1, duration: 0.5, ease: EASE.glide, stagger: 0.05 }, 0.3);
 
         // Description: paragraph lines rise as they enter.
         // Split each paragraph/subheading on its own; splitting the container
         // flattens them into one run of lines and loses paragraph gaps and headings.
         // Lists are split per item for the same reason.
-        about.querySelectorAll<HTMLElement>('.about__detour-label, .about__detour-body > p, .about__kicker, .about__lede, .about__text > :not(ul), .about__text > .about__bullets > li, .about__sec-title, .about__sec-body > p, .about__sec-body > .about__bullets > li, .about__rail-head > *, .about__list li > p, .about__coda').forEach((el) => {
+        about.querySelectorAll<HTMLElement>('.about__detour-label, .about__detour-body > p, .about__kicker, .about__lede, .about__text > :not(ul), .about__text > .about__bullets > li, .about__sec-title, .about__sec-body > p, .about__sec-body > .about__bullets > li, .about__rail-head > *, .about__list li > p, .about__credit-line, .about__coda').forEach((el) => {
           const s = new SplitText(el, { type: 'lines', mask: 'lines', linesClass: 'rv-line' });
           splits.push(s);
           gsap.from(s.lines, { yPercent: 120, duration: 0.7, ease: EASE.glide, stagger: 0.05, scrollTrigger: { trigger: el, start: 'top 90%' } });
@@ -266,8 +266,9 @@ export function DetailPage() {
               the skim layer comes first; on desktop the grid places it in the right rail. */}
           {p.game ? (
             // A playable game takes the rail slot instead of Highlights.
-            <aside className="about__rail about__rail--game" aria-label={p.game.label}>
-              <div className="about__rail-head"><h2 className="eyebrow">{p.game.label}</h2></div>
+            // No label = no heading: the window then starts level with the lede.
+            <aside className="about__rail about__rail--game" aria-label={p.game.label || p.game.title}>
+              {p.game.label ? <div className="about__rail-head"><h2 className="eyebrow">{p.game.label}</h2></div> : null}
               <GameEmbed game={p.game} bg={p.palette.base} />
             </aside>
           ) : desc.rail ? (
@@ -303,6 +304,19 @@ export function DetailPage() {
             <div className="about__text body-m" data-cols={desc.body.length > 1 ? '' : undefined}>
               {desc.body.map((b, i) => (b.kind === 'h' ? <h2 key={i} className="about__subhead eyebrow">{b.text}</h2> : sectionBlock(b, i)))}
             </div>
+          ) : null}
+          {p.credit ? (
+            // Muted credit after the story: "Label: Name" (linked), note underneath.
+            <p className="about__credit body-s">
+              <span className="rule" />
+              <span className="about__credit-line">
+                {p.credit.label}:{' '}
+                {p.credit.href ? (
+                  <a href={p.credit.href} target="_blank" rel="noopener noreferrer">{p.credit.name}</a>
+                ) : p.credit.name}
+              </span>
+              {p.credit.note ? <span className="about__credit-line">{p.credit.note}</span> : null}
+            </p>
           ) : null}
           {p.coda?.length ? (
             <p className="about__coda" data-solo={desc.rail ? undefined : ''}>

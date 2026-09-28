@@ -126,7 +126,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; justify-content: center; padding-top: var(--pad); pointer-events: none; transition: color 0.4s var(--ease-glide); }
 .nav.is-light { color: var(--paper); }
 .nav__list { pointer-events: auto; display: flex; align-items: center; gap: 1.5em; list-style: none; position: relative; padding: 0.35em 0.9em; border-radius: 0.3em; }
-.nav__mark { font-family: var(--font-display); font-size: 1.25em; letter-spacing: -0.02em; line-height: 1; }
 .nav__link { position: relative; font-size: 0.875em; line-height: 1; }
 .nav__link:is([data-current='false'], [aria-pressed='false']) { opacity: 0.6; transition: opacity 0.3s var(--ease-glide); }
 .nav__link:is([data-current='false'], [aria-pressed='false']):hover { opacity: 1; }
@@ -146,6 +145,47 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .nav__item { display: flex; justify-content: space-between; align-items: baseline; width: 100%; padding: 0.45em 0.5em; border-radius: 0.25em; font-size: 0.875em; text-align: left; }
 .nav__item[data-active='true'] { background: var(--paper); color: var(--ink); }
 .nav__item .eyebrow { opacity: 0.6; }
+/* Desktop, every page but the gallery (Nav sets data-notch): the nav is a notch hanging from the
+   top edge, and page content scrolls behind it. It's the page's own colour lifted a step (a touch
+   lighter and warmer by day, a lighter warm charcoal at night) with a soft drop shadow, not an
+   inverted block. At night it's also the room's ceiling fixture: a warm lip along its underside,
+   a halo just below and a faint pool down the page (all scaled by --night, so they fade with the
+   room; the page-change blackout covers them like the rest of the room). Concave shoulders
+   (::before/::after) blend it into the top edge. The label layout is identical with and without
+   the notch, so on the way to/from the gallery only the surface fades. Retracted while
+   data-preload is set (direct loads), then drops in. */
+@media (min-width: 992px) {
+  .nav { padding-top: 0; }
+  .nav::before {
+    content: ''; position: absolute; top: 0; left: 50%; translate: -50% 0; width: 46em; height: 18em; pointer-events: none;
+    background: radial-gradient(ellipse 50% 100% at 50% 0, color-mix(in srgb, #ffc48a calc(var(--night, 0) * 7%), transparent), transparent 72%);
+    opacity: 0; transition: opacity 0.5s var(--ease-glide);
+  }
+  .nav__list {
+    --notch: color-mix(in srgb, #f8f7f5, #1a1816 calc(var(--night, 0) * 100%));
+    --drop: color-mix(in srgb, rgb(40 30 20 / 0.13), rgb(0 0 0 / 0.55) calc(var(--night, 0) * 100%));
+    --lip: color-mix(in srgb, #ffd2a3 calc(var(--night, 0) * 55%), transparent);
+    --halo: color-mix(in srgb, #ffc48a calc(var(--night, 0) * 22%), transparent);
+    --shoulder: 0.75em;
+    padding: 0.85em 1.75em 0.95em;
+    border-radius: 0 0 1em 1em;
+    background-color: transparent;
+    box-shadow: inset 0 -1px 0 transparent, 0 0.35em 1.25em -0.35em transparent, 0 0.6em 1.75em -0.6em transparent;
+    transition: translate 0.8s var(--ease-glide), background-color 0.5s var(--ease-glide), box-shadow 0.5s var(--ease-glide);
+  }
+  .nav__list::before, .nav__list::after { content: ''; position: absolute; top: 0; width: var(--shoulder); height: var(--shoulder); pointer-events: none; opacity: 0; transition: opacity 0.5s var(--ease-glide); }
+  .nav__list::before { right: 100%; background: radial-gradient(circle at 0 100%, transparent var(--shoulder), var(--notch) calc(var(--shoulder) + 0.5px)); }
+  .nav__list::after { left: 100%; background: radial-gradient(circle at 100% 100%, transparent var(--shoulder), var(--notch) calc(var(--shoulder) + 0.5px)); }
+  .nav[data-notch='true']::before, .nav[data-notch='true'] .nav__list::before, .nav[data-notch='true'] .nav__list::after { opacity: 1; }
+  .nav[data-notch='true'] .nav__list {
+    background-color: var(--notch);
+    box-shadow: inset 0 -1px 0 var(--lip), 0 0.35em 1.25em -0.35em var(--drop), 0 0.6em 1.75em -0.6em var(--halo);
+  }
+  html[data-preload] .nav[data-notch='true'] .nav__list { translate: 0 calc(-100% - 2.5em); }
+  html[data-preload] .nav[data-notch='true']::before { opacity: 0; }
+  .nav[data-notch='false'] .ask-dialog { margin-top: 3.25em; }
+}
+
 @media (max-width: 991px) {
   .nav { top: auto; bottom: 0; padding: 0 0 1.5em; }
   .nav__list { background: var(--paper); color: var(--ink); padding: 1em 1.6em; gap: 2em; box-shadow: 0 0.2em 1.5em rgba(0, 0, 0, 0.06); }
@@ -418,6 +458,14 @@ html[data-game-big] .about__rail--game { z-index: 3; }
 .about__coda[data-solo] { grid-column: 9 / 13; grid-row: 2; align-self: end; }
 .about__coda span { display: block; }
 
+/* Credit: a muted, ruled footnote after the story, in the text columns. */
+.about__credit { position: relative; grid-column: 1 / 9; margin-top: 2em; padding-top: 0.9em; color: var(--ink-muted); }
+.about__credit > .rule { position: absolute; top: 0; left: 0; right: 0; }
+.about__credit-line { display: block; }
+.about__credit a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; transition: color 0.3s; }
+.about__credit a:hover, .about__credit a:focus-visible { color: var(--ink); }
+.about__grid[data-game] .about__credit { grid-column: 1 / 7; }
+
 /* Website previews: framed browser windows under the description, whole card links out. */
 .sites { padding-top: 12svh; }
 .sites__head { position: relative; padding: 0.3em 0 0.9em; }
@@ -550,7 +598,7 @@ html[data-game-big] .about__rail--game { z-index: 3; }
    Open/close are CSS transitions on the native <dialog> (@starting-style + allow-discrete). */
 .ask-dialog {
   --shut: inset(0 0 100% 0 round 0.4em);
-  inset: 0 0 auto; margin: 3.25em auto 0; padding: 0; border: 0; border-radius: 0.4em;
+  inset: 0 0 auto; margin: 3.75em auto 0; padding: 0; border: 0; border-radius: 0.4em;
   width: min(40em, 100vw - 2 * var(--pad)); max-width: none; max-height: min(43em, 100svh - 4.25em);
   background: none; overflow: hidden;
   clip-path: var(--shut);
@@ -638,8 +686,8 @@ html[data-night] .profile__prompt:is(:hover, :focus-visible) { --heat: 1; transi
 
 /* Tablet and down: one stack (lede → body → rail); the rail stops being sticky. */
 @media (max-width: 991px) {
-  .about__open, .about__text, .about__sections, .about__rail, .about__coda, .about__coda[data-solo] { grid-column: 1 / -1; grid-row: auto; }
-  .about__grid[data-game] :is(.about__open, .about__text, .about__sections, .about__rail) { grid-column: 1 / -1; }
+  .about__open, .about__text, .about__sections, .about__rail, .about__coda, .about__coda[data-solo], .about__credit { grid-column: 1 / -1; grid-row: auto; }
+  .about__grid[data-game] :is(.about__open, .about__text, .about__sections, .about__rail, .about__credit) { grid-column: 1 / -1; }
   .about__rail { position: static; }
   .about__coda[data-solo] { align-self: start; }
   .about__grid { row-gap: 2.5em; padding-top: 7svh; }

@@ -68,6 +68,16 @@ const project: Field[] = [
     fields: [text('label', 'Label'), { kind: 'strings', key: 'paragraphs', label: 'Paragraphs', long: true, itemLabel: 'paragraph' }],
   },
   { kind: 'strings', key: 'coda', label: 'Closing lines', optional: true, itemLabel: 'line', help: 'Serif sign-off under the write-up, one line each.' },
+  {
+    kind: 'object', key: 'credit', label: 'Credit after the write-up', optional: true,
+    help: 'Small grey line after the write-up: "Label: Name", the note on a second line.',
+    fields: [
+      text('label', 'Label', { help: 'e.g. "Responsible Influence".' }),
+      text('name', 'Name'),
+      opt('href', 'Name links to', { help: 'e.g. a LinkedIn profile. Opens in a new tab.' }),
+      opt('note', 'Second line'),
+    ],
+  },
   { kind: 'list', key: 'links', label: 'Buttons', optional: true, summary: 'label', itemLabel: 'button', help: 'Shown under the facts table. http links open in a new tab.', fields: link('Label'), newItem: () => ({ label: '', href: '' }) },
   {
     kind: 'list', key: 'previews', label: 'Website previews', optional: true, summary: 'label', itemLabel: 'website',
@@ -79,7 +89,7 @@ const project: Field[] = [
     kind: 'object', key: 'game', label: 'Live embed (game or app)', optional: true,
     help: 'Embedded in the right-hand rail (replaces Highlights). The page loads the URL in a frame once the visitor clicks it.',
     fields: [
-      text('label', 'Rail heading', { help: 'e.g. "Play" or "Try it".' }),
+      opt('label', 'Rail heading', { help: 'e.g. "Play". Leave empty for no heading.' }),
       text('src', 'URL', { pattern: '^https://', help: 'Must allow being framed by this site (no X-Frame-Options / frame-ancestors block).' }),
       text('title', 'Frame title (screen readers)'),
       { kind: 'image', key: 'poster', label: 'Poster', optional: true, help: 'Still of the first screen, 16:9, shown until the visitor clicks (the page only loads then).' },
@@ -127,7 +137,7 @@ export const DOCS: DocSpec[] = [
     root: {
       kind: 'object', key: '', label: '', fields: [
         text('name', 'Name', { help: 'Preloader, About page heading, chat bot.' }),
-        text('mark', 'Wordmark', { help: 'Nav logo and portrait placeholder, e.g. "GR".' }),
+        text('mark', 'Wordmark', { help: 'About page portrait placeholder (shown until a portrait is set), e.g. "GR".' }),
         text('sectionLabel', 'Gallery section label', { help: 'Screen readers only: the gallery heading and carousel label.' }),
         opt('tagline', 'Gallery tagline', { long: 2, help: 'Bottom-left of the gallery. Each sentence gets its own line. Empty hides it.' }),
         { kind: 'number', key: 'sinceYear', label: 'Preloader start year', help: 'The preloader counts from this year to the current one.' },
@@ -203,10 +213,9 @@ export const DOCS: DocSpec[] = [
       kind: 'object', key: '', label: '', fields: [
         {
           kind: 'object', key: 'nav', label: 'Navigation', fields: [
-            text('work', 'Work link'), text('about', 'About link'), text('index', 'Index menu'),
+            text('work', 'Home link', { help: 'Goes to the gallery (homepage).' }), text('about', 'About link'), text('index', 'Index menu'),
             text('ask', 'Chat button', { help: 'Opens the "Ask about me" chat in a dialog, on every page.' }),
-            text('night', 'Night mode toggle', { help: 'Homepage only: turns the room lights down and drops the lamp.' }),
-            text('homeLabel', 'Logo label (screen readers)', { help: 'Tokens: {name}.' }),
+            text('night', 'Night mode toggle', { help: 'Every page: turns the room lights down (and drops the lamp on the homepage).' }),
           ],
         },
         {

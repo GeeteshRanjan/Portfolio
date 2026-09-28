@@ -22,6 +22,7 @@ function projectBlock(p: Project) {
   if (p.detour) lines.push('', `${p.detour.label}:`, ...p.detour.paragraphs);
   lines.push('', plain(p.description));
   if (p.coda?.length) lines.push('', p.coda.join(' '));
+  if (p.credit) lines.push('', `${p.credit.label}: ${p.credit.name}${p.credit.href ? ` (${p.credit.href})` : ''}${p.credit.note ? `. ${p.credit.note}` : ''}`);
   return lines.join('\n');
 }
 

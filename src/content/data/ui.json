@@ -1,11 +1,10 @@
 {
   "nav": {
-    "work": "Work",
+    "work": "Home",
     "about": "About",
     "index": "Index",
     "ask": "Ask",
-    "night": "Night",
-    "homeLabel": "{name}, home"
+    "night": "Night"
   },
   "gallery": {
     "help": "Use the left and right arrow keys to browse. Press Enter to open the project in front, or Space to turn the disc over.",

@@ -46,6 +46,11 @@ export interface Project {
   detour?: { label: string; paragraphs: string[] };
   /** Optional closing lines under the description, one line each (e.g. a two-line sign-off). */
   coda?: string[];
+  /**
+   * Optional muted credit line after the write-up: "label: name" (name links to `href`
+   * if set), with `note` on a second line.
+   */
+  credit?: { label: string; name: string; href?: string; note?: string };
   links?: { label: string; href: string }[];
   /**
    * Website previews shown under the description as framed browser windows.
@@ -61,7 +66,7 @@ export interface Project {
    * (default 600, the game's rail layout; a web app wants its desktop width, e.g. 900).
    * `prompt`: cover text (default `ui.detail.play`, "Click to play").
    */
-  game?: { label: string; src: string; title: string; poster?: string; keys?: string[]; viewport?: number; prompt?: string };
+  game?: { label?: string; src: string; title: string; poster?: string; keys?: string[]; viewport?: number; prompt?: string };
   /**
    * Disc label artwork (square image, centre hole is masked automatically).
    * When omitted a placeholder label is generated from `palette`.
@@ -92,7 +97,7 @@ export interface Project {
 
 export interface SiteContent {
   name: string;
-  /** Short wordmark for nav/preloader. */
+  /** Short wordmark: About page portrait placeholder. */
   mark: string;
   sectionLabel: string;
   /** Gallery intro, bottom-left: one line per sentence. Omit to hide. */
@@ -106,7 +111,8 @@ export interface SiteContent {
 
 /** Small interface strings. `{token}` placeholders are filled in by the component. */
 export interface UiContent {
-  nav: { work: string; about: string; index: string; ask: string; night: string; homeLabel: string };
+  /** `work` is the Home link (key kept from when it was labelled "Work"). */
+  nav: { work: string; about: string; index: string; ask: string; night: string };
   gallery: { help: string; announce: string };
   detail: {
     sectionLabel: string; websiteOne: string; websiteMany: string;

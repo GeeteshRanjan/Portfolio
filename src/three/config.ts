@@ -144,6 +144,8 @@ export const GALLERY = {
   scribbleLag: 15,
   // Gallery hover note: its arrow points here (disc-plane, unit radius; just outside the ring, lower right).
   noteAnchor: [0.86, -0.86],
+  // The note starts writing once the carousel is this close (in items) to the disc it's heading for.
+  noteNear: 0.15,
   renderRadius: 5,
 } as const;
 

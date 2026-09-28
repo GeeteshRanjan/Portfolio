@@ -12,6 +12,12 @@ tsconfig.tsbuildinfo
 /1000106960.png
 /Geetesh_Linkedin_Photo.jpg
 /CHATBOT_KNOWLEDGE_ANSWERED_DRAFT*
+/Logos_Geetesh/
+# Artwork not used by the site yet (kept locally; delete the line when you use one, or it won't deploy)
+/public/images/about-me-disc.jpg
+/public/images/about-me-hero.jpg
+/public/images/about-me-portrait.jpg
+/public/logos/ansr-mono.svg
 # Local secrets (API keys)
 .env
 .env.*

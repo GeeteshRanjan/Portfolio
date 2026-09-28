@@ -33,8 +33,10 @@ function writePanel(root: HTMLElement, p: Project) {
 const ARROW = ['M64 70C68 44 48 16 2 2', 'M10 10L2 2L13 0'];
 /** Noise seeds for the three "takes" of the note; CSS cycles them at 10 fps so it boils like the scribble. */
 const TAKES = [1, 2, 3];
-/** Matches the `.note` hide transition; a different note waits this long before it is written. */
+/** Matches the `.note` hide transition; a note replacing one still on screen waits this long. */
 const NOTE_OUT = 200;
+/** The carousel must be landing this long before the note is written, so gaps in a wheel burst don't flash it. */
+const NOTE_SETTLE = 60;
 /** Gallery intro (bottom-left): the tagline, one sentence per row. */
 const taglineRows = (site.tagline ?? '').split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
 
@@ -81,13 +83,14 @@ export function GalleryPage() {
     const release = () => {
       copyAllowed = true;
       text.nudge();
+      if (!cancelled) setNote(noteAt);
       if (reduced || introSplit || cancelled || !introEls.length) return;
       introSplit = new SplitText(introEls, { type: 'lines', mask: 'lines', linesClass: 'rv-line' });
       gsap.set(introEls, { autoAlpha: 1 });
       introTween = gsap.fromTo(introSplit.lines, { yPercent: 120 }, { yPercent: 0, duration: 0.8, ease: EASE.glide, stagger: 0.1, delay: 0.25 });
     };
     let announceTimer = 0;
-    // Hover note: written next to the disc the scribble circles, if it has one; rides on the scribble's tracking.
+    // Gallery note: written next to the disc in focus, if it has one, once the carousel is at rest; erased while it moves.
     const note = noteRef.current!, noteTexts = note.querySelectorAll('text');
     let noteTimer = 0, noteAt = -1, noteX = 0, unit = 0, wordsW = 0, wordsX = NaN;
     // Near the right edge the words slide left under the arrow, so they stay on screen.
@@ -107,14 +110,16 @@ export function GalleryPage() {
       placeWords();
     };
     const setNote = (i: number) => {
-      const text = projects[i]?.note ?? '';
-      const current = noteTexts[0].textContent;
+      // Not before the intro copy is released (release() re-applies the current target).
+      const text = (copyAllowed && projects[i]?.note) || '';
+      const on = 'on' in note.dataset;
       clearTimeout(noteTimer);
-      if (text !== current) delete note.dataset.on;
+      if (on && text === noteTexts[0].textContent) return;
+      delete note.dataset.on;
       if (text) noteTimer = window.setTimeout(() => {
         writeNote(text);
         note.dataset.on = '';
-      }, current && text !== current ? NOTE_OUT : 0);
+      }, on ? Math.max(NOTE_OUT, NOTE_SETTLE) : NOTE_SETTLE);
     };
     // Load the hand now, so the first note isn't written in the fallback font.
     void document.fonts.load('1em "Nanum Pen Script"');
@@ -145,10 +150,11 @@ export function GalleryPage() {
         openedDisc = url;
         go(url, 'from-gallery');
       },
-      onScribble: (i, x, y) => {
-        note.style.translate = `${(noteX = x)}px ${y}px`;
+      onNote: (i, x, y) => {
+        // -1 carries no position: the note erases where it was.
+        if (i >= 0) note.style.translate = `${(noteX = x)}px ${y}px`;
         if (i !== noteAt) setNote((noteAt = i));
-        placeWords();
+        if (i >= 0) placeWords();
       },
     }, { reducedMotion: reduced, startIndex: session.galleryIndex, night: night.on });
 

@@ -42,10 +42,11 @@ export interface GalleryCallbacks {
   onDragChange?: (dragging: boolean) => void;
   onReady?: () => void;
   /**
-   * Every frame the scribble is on screen, and when its target changes: the disc it
-   * circles (-1 = none) and the screen position (px) of `noteAnchor` on that disc.
+   * Gallery note target. Every frame the carousel rests on a disc, and whenever the target
+   * changes: the disc in focus (-1 while the carousel moves, during the intro and exit
+   * flights) and the screen position (px) of `noteAnchor` on that disc.
    */
-  onScribble?: (index: number, x: number, y: number) => void;
+  onNote?: (index: number, x: number, y: number) => void;
 }
 
 export interface PreloaderApi {
@@ -74,7 +75,8 @@ export class DiscGallery {
   private disposed = false;
   private ready = false;
   private scribbleTimer = 0;
-  private scribbleWant = -1;
+  private noteWant = -1;
+  private noteV = new THREE.Vector3();
   private resizeObs?: ResizeObserver;
   private width = 1;
   private height = 1;
@@ -1206,9 +1208,20 @@ export class DiscGallery {
     const scribbling = this.scribble.step(t, want, (i) => this.visible.get(i)?.obj.group ?? null, this.moving(), dt, this.reduced);
     this.gallery.updateMatrixWorld();
     this.scribble.project(this.gallery.matrixWorld, this.camera, this.width, this.height);
-    if (want !== this.scribbleWant || this.scribble.visible) {
-      this.scribbleWant = want;
-      this.cb.onScribble?.(want, ...this.scribble.toScreen(C.noteAnchor[0], C.noteAnchor[1], this.camera, this.width, this.height));
+    // Note: on the disc in focus, from the moment the carousel is about to land on it (hidden while it moves).
+    const heading = this.currentTarget();
+    const landing = !this.dragging && this.dragV === 0 && heading === this.active && Math.abs(this.L - heading) < C.noteNear;
+    const noteDisc = this.flightLock || this.preload.active || !landing ? undefined : this.visible.get(this.active)?.obj.group;
+    const note = noteDisc ? this.active : -1;
+    if (note !== this.noteWant || noteDisc) {
+      this.noteWant = note;
+      let x = 0, y = 0;
+      if (noteDisc) {
+        const v = this.noteV.set(C.noteAnchor[0], C.noteAnchor[1], 0).applyMatrix4(noteDisc.matrixWorld).project(this.camera);
+        x = (v.x + 1) * 0.5 * this.width;
+        y = (1 - v.y) * 0.5 * this.height;
+      }
+      this.cb.onNote?.(note, x, y);
     }
     const lampMoving = this.lamp.update(dt, this.reduced);
 

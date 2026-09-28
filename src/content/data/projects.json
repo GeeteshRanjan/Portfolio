@@ -3,16 +3,17 @@
     "slug": "about-me",
     "href": "/about",
     "title": "About Me",
+    "panelTitle": "Geetesh Ranjan",
     "category": "Introduction",
     "year": "Since 2023",
     "metadata": [
       {
-        "label": "Name",
-        "value": "Geetesh Ranjan"
-      },
-      {
         "label": "Role",
         "value": "Marketing & Product"
+      },
+      {
+        "label": "Experience",
+        "value": "3+ years"
       },
       {
         "label": "Based in",
@@ -67,15 +68,14 @@
         "value": "Web, embedded on ansr.com"
       }
     ],
-    "description": "A self-serve tool that shows enterprise leaders how comparable companies run their India Global Capability Centres.\n\n## The Idea\n\nI wanted to build a prospect-facing tool that could turn a few basic company inputs into a relevant view of the Indian GCC landscape, showing which peers are already operating in India and where India could support the company’s own functions.\n\nThis took shape as a working product that brought together the research structure, benchmarking framework and overall experience.\n\n## The Thinking\n\nThe tool needed to make existing GCC intelligence more specific to the company exploring it. Instead of presenting the same market view to every visitor, it would use the company’s own context to answer two practical questions:\n\n> Which companies similar to us are already operating in India?\n> Which functions could India support for our organisation?\n\n## Getting the Matching Right\n\nDefining what genuinely makes two companies peers became one of the most interesting product challenges. Industry alone was too broad, while revenue alone could group companies that looked similar in size but operated very differently.\n\nThe matching framework combines both factors, giving 70% weight to business similarity and 30% to revenue proximity. Business similarity is calculated using 138 weighted tags across sub-industries. A minimum similarity threshold ensures that two companies must first be meaningfully related as businesses before company size can influence the match.\n\nThis required connecting different datasets and determining how a small number of company inputs could produce relevant comparisons. The result was a matching system designed to be useful in context, not simply statistically close.",
-    "links": [
-      {
-        "label": "Live",
-        "href": "https://gcc-landscape.vercel.app"
-      }
-    ],
+    "description": "A self-serve tool that shows enterprise leaders how comparable companies run their India Global Capability Centres.\n\n## Idea\n\nI wanted to build a prospect-facing tool that could turn a few basic company inputs into a relevant view of the Indian GCC landscape, showing which peers are already operating in India and where India could support the company’s own functions.\n\nThis took shape as a working product that brought together the research structure, benchmarking framework and overall experience.\n\n## Thought behind\n\nThe tool needed to make existing GCC intelligence more specific to the company exploring it. Instead of presenting the same market view to every visitor, it would use the company’s own context to answer two practical questions:\n\n> Which companies similar to us are already operating in India?\n> Which functions could India support for our organisation?\n\n## Algorithm & Framework\n\nDefining what genuinely makes two companies peers became one of the most interesting product challenges. Industry alone was too broad, while revenue alone could group companies that looked similar in size but operated very differently.\n\nThe matching framework combines both factors, giving 70% weight to business similarity and 30% to revenue proximity. Business similarity is calculated using 138 weighted tags across sub-industries. A minimum similarity threshold ensures that two companies must first be meaningfully related as businesses before company size can influence the match.\n\nThis required connecting different datasets and determining how a small number of company inputs could produce relevant comparisons. The result was a matching system designed to be useful in context, not simply statistically close.",
+    "credit": {
+      "label": "Responsible Influence",
+      "name": "Muthulakshmi Subbiah",
+      "href": "https://www.linkedin.com/in/muthulakshmisubbiah/",
+      "note": "More involved than she’ll admit"
+    },
     "game": {
-      "label": "Try it",
       "src": "https://gcc-landscape.vercel.app/",
       "title": "GCC Atlas",
       "poster": "/images/gcc-atlas-poster.jpg",
@@ -136,16 +136,12 @@
       }
     ],
     "description": "An 8-bit platformer that turns the hidden friction of building a Global Capability Centre in India into something prospects can experience for themselves.\n\n## The Idea\n\nBuilding a Global Capability Centre involves a web of interconnected challenges, from compliance approvals to hiring and operational setup. In a slide deck, these can appear like simple, sequential steps. In reality, the challenges are connected, and friction in one area can quickly affect everything that follows.\n\n## Why a Game?\n\nThe idea was to turn that hidden friction into something prospects could experience before beginning the real journey. Instead of explaining the challenges through another presentation, the game lets players encounter them through its obstacles, decisions and trade-offs.\n\nThe experience was intended to be short enough for casual discovery, but meaningful enough to create interest in the larger problem. The goal was not to teach players everything about building a GCC, but to make the cost of navigating it without the right support easier to understand.\n\n## How It Works\n\nThe experience is a retro-style platformer spanning six short levels. Familiar gaming obstacles are mapped to real GCC setup challenges, exaggerated enough to remain playful but still rooted in genuine business friction.\n\nThe gameplay structure, obstacle mapping and power-up logic were all shaped around translating a complex business proposition into mechanics, consequences and play.\n\nANSR’s role is built into those mechanics rather than added as a traditional sales message. Power-ups represent different forms of support, showing how the right intervention changes the way a player handles an obstacle. This allows the player to feel the difference between navigating the journey alone and having the right support.\n\nAt the end, the player receives a “receipt” showing the time lost across the journey. This creates a natural transition from the fictional experience to ANSR’s real-world planning tool.\n\n## Tech. behind it\n\nBeyond the gameplay, the experience needed to remain lightweight, accessible and easy to distribute. Its visuals and audio are generated programmatically, keeping the entire game to just 82 KB gzipped.\n\nThe experience is WCAG 2.2 AA compliant, collects no personal data and can be used across the website, event activations and campaign journeys without relying on heavy asset files or a complex setup.",
-    "links": [
-      {
-        "label": "Live",
-        "href": "https://ansrcade.vercel.app"
-      },
-      {
-        "label": "Code",
-        "href": "https://github.com/GeeteshRanjan/beam-run"
-      }
-    ],
+    "credit": {
+      "label": "Responsible Influence",
+      "name": "Muthulakshmi Subbiah",
+      "href": "https://www.linkedin.com/in/muthulakshmisubbiah/",
+      "note": "More involved than she’ll admit"
+    },
     "game": {
       "label": "Play",
       "src": "https://ansrcade.vercel.app/",
@@ -207,7 +203,7 @@
     ],
     "description": "An AI-assisted workflow for account research, prospect enrichment and outbound campaign preparation.\n\n## Why It Was Needed\n\nAccount research and outreach preparation involved moving between multiple tools to understand a company, identify relevant prospects, find useful business signals and prepare personalised messaging. The work was valuable, but much of the time went into gathering and organising information before the actual outreach could begin.\n\n## How it works\n\nThe idea was to bring those disconnected steps into one AI-assisted workflow for account research, prospect enrichment and outbound campaign preparation.\n\nRather than automating outreach itself, the aim was to reduce the manual work behind it while preserving human review and judgement before anything moved into a campaign.\n\n## Inside the Workflow\n\nCompany and prospect data are gathered from multiple sources, enriched through research workflows and consolidated into a structured account view.\n\nThe system then analyses company priorities, recent developments, leadership context and relevant business signals to identify potential outreach angles. These insights are used to prepare draft emails, which go through quality checks and human review before they are considered ready for campaign preparation.\n\nThe research methodology, enrichment logic, messaging structure and quality controls were built as connected parts of the same workflow. This ensures that the messaging is based on the research collected for that account rather than generated as a separate, generic step.\n\n## Impact\n\nThe workflow brings account research, prospect enrichment, signal detection, messaging generation and quality checks into one connected process.\n\nInformation that previously required several tools and 8–16 hours of manual preparation can now be brought together in 1–2 hours, leaving more time to review the research, improve the messaging and decide which accounts are worth prioritising.\n\n## Infrastructure\n\n- Research: Sales Navigator · Apollo · Prospeo · Clay\n- Automation: n8n · Excel\n- Outreach: Instantly · Zapmail\n- AI: Custom prompting workflows · Research and messaging logic · Quality control framework",
     "logo": {
-      "src": "/logos/ansr-mono.svg",
+      "src": "/logos/ansr-light.svg",
       "y": 0.14,
       "width": 0.2
     },
@@ -216,8 +212,8 @@
       "title": true
     },
     "palette": {
-      "base": "#FF5400",
-      "accent": "#005465",
+      "base": "#3A0C14",
+      "accent": "#FD4E11",
       "ink": "#FFFFFF"
     }
   },
