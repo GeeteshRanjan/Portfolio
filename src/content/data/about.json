@@ -1,0 +1,118 @@
+{
+  "headline": "Marketing and Product Builder",
+  "location": "Bengaluru, India",
+  "intro": "I turn marketing and workflow problems into clearer systems, messages and products.",
+  "bio": [
+    "I started with campaigns and customer acquisition, moved closer to revenue and positioning, and eventually began building systems and products around recurring operating problems.",
+    "I am most useful when a problem crosses marketing, product and execution. I like understanding how the work actually happens, finding where it becomes unclear or repetitive, and building something more usable around it."
+  ],
+  "experience": [
+    {
+      "role": "Demand Generation Associate & Forward Deployed Specialist",
+      "company": "ANSR Global",
+      "period": "2026 — Present",
+      "location": "Bengaluru",
+      "summary": "Demand generation, account-based marketing, outreach automation and internal software utilities. I also pitched and delivered four projects beyond my core role, moving into workflow design and AI-assisted product building."
+    },
+    {
+      "role": "Marketing Associate",
+      "company": "GrowYourStaff",
+      "period": "2025",
+      "summary": "B2B marketing, market research, lead generation, ABM, qualification and nurturing. Rebuilt parts of the funnel, contributing to a reported 2× increase in campaign response rates and roughly 120% better paid-media performance."
+    },
+    {
+      "role": "Marketing Consultant",
+      "company": "Wizar Learning",
+      "period": "2024 — 2025",
+      "summary": "Go-to-market strategy, positioning and messaging for four products across India, the UAE, Africa and North America, through to launch planning and customer-facing assets."
+    },
+    {
+      "role": "Marketing Associate",
+      "company": "SquadStack",
+      "period": "2023 — 2024",
+      "summary": "Integrated campaigns, paid media, targeting, creative testing and conversion journeys, associated with a 130% increase in customer onboarding and roughly 30% lower acquisition cost."
+    },
+    {
+      "role": "Sales Development Associate",
+      "company": "SquadStack",
+      "period": "2023 — 2024",
+      "summary": "Market research, lead generation, nurturing and conversion for financial-sector accounts. It moved me closer to commercial conversations and changed how I understood attention, intent and timing."
+    },
+    {
+      "role": "Marketing Intern",
+      "company": "SquadStack",
+      "period": "2023 — 2024",
+      "summary": "Content creation, campaign ideation, offline marketing and user onboarding: an operational introduction to how campaigns, communication and customer experience connect."
+    }
+  ],
+  "skills": [
+    {
+      "group": "Marketing",
+      "items": [
+        "Demand Generation",
+        "ABM",
+        "Campaign Strategy",
+        "Paid Media",
+        "Lead Generation",
+        "Nurturing"
+      ]
+    },
+    {
+      "group": "Strategy",
+      "items": [
+        "Positioning",
+        "Messaging",
+        "Go-to-Market",
+        "Market Research",
+        "Market Entry"
+      ]
+    },
+    {
+      "group": "Product",
+      "items": [
+        "Problem Definition",
+        "User Flows",
+        "Information Architecture",
+        "Interface Direction",
+        "Product Requirements"
+      ]
+    },
+    {
+      "group": "Systems",
+      "items": [
+        "Workflow Design",
+        "Automation",
+        "Lead Scoring",
+        "Research Systems",
+        "Outreach Systems"
+      ]
+    },
+    {
+      "group": "Building",
+      "items": [
+        "AI-Assisted Development",
+        "Prompt Systems",
+        "Data Structure",
+        "Prototyping",
+        "Testing"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Tech, Computer Science and Engineering",
+      "school": "Jaypee Institute of Information Technology, Noida",
+      "period": "2019 — 2023"
+    }
+  ],
+  "contact": {
+    "prompt": "Start a conversation",
+    "email": "geeteshranjan@gmail.com",
+    "socials": [
+      {
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/in/geeteshranjan/"
+      }
+    ]
+  }
+}

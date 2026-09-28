@@ -1,0 +1,42 @@
+{
+  "nav": {
+    "work": "Work",
+    "about": "About",
+    "index": "Index",
+    "ask": "Ask",
+    "night": "Night",
+    "homeLabel": "{name}, home"
+  },
+  "gallery": {
+    "help": "Use the left and right arrow keys to browse. Press Enter to open the project in front, or Space to turn the disc over.",
+    "announce": "{title}, {n} of {total}"
+  },
+  "detail": {
+    "sectionLabel": "About {title}",
+    "websiteOne": "Website",
+    "websiteMany": "Websites",
+    "address": "Address",
+    "go": "Go",
+    "done": "Done",
+    "visitSite": "Visit site",
+    "visitLabel": "Visit {label} ({host}, opens in a new tab)",
+    "play": "Click to play",
+    "resume": "Click to resume",
+    "playLabel": "Play {title} here with the keyboard",
+    "enlarge": "Enlarge",
+    "shrink": "Shrink",
+    "newTab": "Open",
+    "newTabLabel": "Open {title} in a new tab"
+  },
+  "about": {
+    "basedIn": "Based in",
+    "status": "Status",
+    "email": "Email",
+    "bioLabel": "Bio",
+    "experience": "Experience",
+    "skills": "Skills",
+    "education": "Education",
+    "recognition": "Recognition",
+    "contact": "Contact"
+  }
+}

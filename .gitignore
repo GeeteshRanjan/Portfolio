@@ -1,0 +1,17 @@
+node_modules
+dist
+reference/tools/node_modules
+.DS_Store
+# Local analysis copy of the reference (third-party assets, not for redistribution)
+reference/source/
+validation/
+reference/screenshots/
+reference/recordings/
+tsconfig.tsbuildinfo
+# Raw personal originals and working drafts (not used by the site)
+/1000106960.png
+/Geetesh_Linkedin_Photo.jpg
+/CHATBOT_KNOWLEDGE_ANSWERED_DRAFT*
+# Local secrets (API keys)
+.env
+.env.*

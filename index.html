@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Geetesh Ranjan | Marketing, Systems and Products</title>
+    <meta name="description" content="A collection of work across growth, positioning, automation and AI-assisted product building by Geetesh Ranjan." />
+    <meta name="theme-color" content="#f2f2f2" />
+    <script>
+      // Hide intro-owned UI before first paint when the preloader will run (mirrors reference data-preload).
+      (function () {
+        // Saved night mode (key from src/app/session.ts), every page but the admin: start dark instead of fading in from day.
+        if (location.pathname.indexOf('/admin') !== 0) {
+          try { if (localStorage.getItem('night') === '1') document.documentElement.setAttribute('data-night', ''); } catch (e) {}
+        }
+        if (location.pathname !== '/' && location.pathname !== '') return;
+        if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        document.documentElement.setAttribute('data-preload', '');
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

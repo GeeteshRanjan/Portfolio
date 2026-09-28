@@ -1,0 +1,37 @@
+{
+  "label": "Ask about me",
+  "greeting": "Ask anything about my work, background or how I think. An AI answers.",
+  "placeholder": "Ask a question…",
+  "suggestions": [
+    "Summarise his career in 30 seconds",
+    "Why marketing and code?",
+    "What has he built himself?",
+    "Is he open to new roles?"
+  ],
+  "ui": {
+    "note": "AI · may be imperfect",
+    "clear": "Clear",
+    "close": "Close",
+    "thinking": "Thinking",
+    "ask": "Ask",
+    "stop": "Stop",
+    "inputLabel": "Your question",
+    "sendLabel": "Send question",
+    "stopLabel": "Stop answer",
+    "youAsked": "You asked:",
+    "answer": "Answer:",
+    "suggestionsLabel": "Suggested questions",
+    "logLabel": "Conversation"
+  },
+  "errors": {
+    "unavailable": "The assistant is unavailable right now.",
+    "empty": "No answer came back. Try rephrasing the question.",
+    "generic": "Something went wrong.",
+    "notConfigured": "The assistant is not configured.",
+    "tooMany": "Too many questions in a short time. Try again in a few minutes.",
+    "invalid": "Invalid request.",
+    "quota": "The assistant has hit its limit for now. Try again later, or email me.",
+    "busy": "The assistant is busy right now. Try again in a moment, or email me.",
+    "cutOff": "(The answer was cut off. Try asking again.)"
+  }
+}

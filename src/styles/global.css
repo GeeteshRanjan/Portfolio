@@ -1,0 +1,650 @@
+@import '@fontsource/instrument-serif/400.css';
+@import '@fontsource/cormorant-sc/500.css';
+@import '@fontsource/nanum-pen-script/latin-400.css';
+@import '@fontsource-variable/inter-tight/index.css';
+
+/* Night mode (site-wide, html[data-night], set by src/app/room.ts): one registered number fades and
+   the page colours derive from it. The gallery's lamp reads the same value, so the WebGL fog and
+   lights stay in step. The night --bg must equal NIGHT.fog in src/three/config.ts.
+   Night-only effects (reading light, screen glow, lit portrait, grain) scale with var(--night), so
+   they fade with the room instead of switching. */
+@property --night { syntax: '<number>'; inherits: true; initial-value: 0; }
+@property --heat { syntax: '<number>'; inherits: true; initial-value: 0; }
+html[data-night] { --night: 1; }
+
+:root {
+  --bg: color-mix(in srgb, #f2f2f2, #0c0b0a calc(var(--night, 0) * 100%));
+  /* The "desk" sections (description, next project, contact): darker than --bg by day, a step lighter at night. */
+  --bg-dark: color-mix(in srgb, #d6d3d1, #171513 calc(var(--night, 0) * 100%));
+  --ink: color-mix(in srgb, #000, #ebe6de calc(var(--night, 0) * 100%));
+  --ink-soft: color-mix(in srgb, var(--ink) 60%, transparent);
+  /* Muted text on --bg-dark (asides, whispers, detour): 58% ink keeps ≥4.5:1 day and night. */
+  --ink-muted: color-mix(in srgb, var(--ink) 58%, transparent);
+  --paper: var(--bg);
+  transition: --night 1s cubic-bezier(0.625, 0.05, 0, 1);
+  --pad: 0.5em;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Inter Tight Variable', Arial, sans-serif;
+  --font-eyebrow: 'Cormorant SC', Georgia, serif;
+  --ease-glide: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-bounce: cubic-bezier(0.34, 2.27, 0.64, 1);
+  --ease-transform: cubic-bezier(0.59, 1, 0.88, 1.01);
+  --ease-elastic: linear(0, 0.5737 7.6%, 0.8382 11.87%, 0.9463 14.19%, 1.0292 16.54%, 1.0886 18.97%, 1.1258 21.53%, 1.137 22.97%, 1.1424 24.48%, 1.1423 26.1%, 1.1366 27.86%, 1.1165 31.01%, 1.0507 38.62%, 1.0219 42.57%, 0.9995 46.99%, 0.9872 51.63%, 0.9842 58.77%, 1.0011 81.26%, 1);
+}
+
+/* Fluid root: 16px at 1440 wide; components size in em. */
+html { font-size: 1.1111vw; }
+@media (max-width: 991px) { html { font-size: 1.75vw; } }
+@media (max-width: 767px) { html { font-size: 2.6vw; } }
+@media (max-width: 479px) { html { font-size: 4.1vw; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); }
+html { scrollbar-width: none; -webkit-tap-highlight-color: transparent; }
+body::-webkit-scrollbar { display: none; }
+body {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior: none;
+}
+p, h1, h2, h3, ul { margin: 0; padding: 0; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+:focus:not(:focus-visible) { outline: 0; }
+:focus-visible { outline: 1px solid; outline-offset: 0.3em; }
+::selection { background: var(--ink); color: var(--paper); }
+
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+/* ---------- type ---------- */
+.display-xl { font-family: var(--font-display); font-weight: 400; font-size: 8em; line-height: 0.9; letter-spacing: -0.04em; text-transform: uppercase; }
+.display-l { font-family: var(--font-display); font-weight: 400; font-size: 6em; line-height: 1; letter-spacing: -0.04em; text-transform: uppercase; }
+.display-m { font-family: var(--font-display); font-weight: 400; font-size: 3.5em; line-height: 1; letter-spacing: -0.04em; text-transform: uppercase; }
+.display-s { font-family: var(--font-display); font-weight: 400; font-size: 2.5em; line-height: 1.05; letter-spacing: -0.03em; text-transform: uppercase; }
+.display-xs { font-family: var(--font-display); font-weight: 400; font-size: 1.75em; line-height: 1.05; letter-spacing: -0.03em; text-transform: uppercase; }
+.eyebrow { font-family: var(--font-eyebrow); font-weight: 500; font-size: 0.625em; line-height: 1.3; letter-spacing: 0.2em; text-transform: uppercase; }
+.body-m { font-size: 1.125em; line-height: 1.4; }
+.body-s { font-size: 0.875em; line-height: 1.3; }
+
+/* ---------- line masks used by TextTransition / reveals ---------- */
+[data-tt-mask] { display: block; position: relative; min-width: 0; overflow: hidden; }
+.tt-line, .rv-line { display: block; will-change: transform; }
+[data-tt-rule], .rule { display: block; height: 1px; background: currentColor; transform-origin: left center; will-change: transform; }
+
+/* ---------- hover text (duplicate label rolls in) ---------- */
+[data-hover] { display: inline-block; transition: transform 0.45s var(--ease-elastic); }
+[data-hover]:active { transform: scaleX(0.955) scaleY(0.954); }
+[data-hover] .hv { display: inline-grid; vertical-align: top; }
+[data-hover] .hv > span, [data-hover] .hv::after { grid-area: 1 / 1; }
+/* Resting clips reach 0.3em past the line box, or descenders (g, j, y) are cut on line-height: 1 labels. */
+[data-hover] .hv > span {
+  clip-path: inset(-0.3em 0);
+  transform-origin: bottom;
+  transition: clip-path 0.4s var(--ease-glide), scale 0.3s var(--ease-bounce), translate 0.35s var(--ease-glide);
+}
+[data-hover] .hv::after {
+  content: attr(data-text);
+  display: block;
+  clip-path: inset(0% 0% 100%);
+  transform-origin: top;
+  translate: 0 -0.25em;
+  scale: 1.05;
+  transition: clip-path 0.4s var(--ease-glide), scale 0.3s var(--ease-bounce), translate 0.35s var(--ease-glide);
+}
+@media (hover: hover) and (pointer: fine) {
+  [data-hover]:is(:hover, :focus-visible) .hv > span { clip-path: inset(100% 0% 0%); translate: 0 0.25em; scale: 0.95; }
+  [data-hover]:is(:hover, :focus-visible) .hv::after { clip-path: inset(-0.3em 0); translate: 0; scale: 1; transition-delay: 75ms; }
+}
+
+/* ---------- grain ---------- */
+.grain {
+  position: fixed; inset: -1em; z-index: 99; pointer-events: none;
+  opacity: 0.2; filter: contrast(75%) brightness(70%);
+  background-size: 7.8125em; background-position: 50%;
+  will-change: transform;
+  animation: grain 0.6s step-end infinite;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-0.5em, 0.3em); }
+  40% { transform: translate(0.4em, -0.2em); }
+  60% { transform: translate(-0.3em, -0.4em); }
+  80% { transform: translate(0.2em, 0.5em); }
+}
+
+/* Night page change: the room's lights go out and come back on with a warm-up (driven by src/app/Transition.tsx).
+   Under the grain so the film keeps running in the dark. */
+.lights { position: fixed; inset: 0; z-index: 98; pointer-events: none; background: #000; opacity: 0; visibility: hidden; }
+
+/* ---------- nav ---------- */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; justify-content: center; padding-top: var(--pad); pointer-events: none; transition: color 0.4s var(--ease-glide); }
+.nav.is-light { color: var(--paper); }
+.nav__list { pointer-events: auto; display: flex; align-items: center; gap: 1.5em; list-style: none; position: relative; padding: 0.35em 0.9em; border-radius: 0.3em; }
+.nav__mark { font-family: var(--font-display); font-size: 1.25em; letter-spacing: -0.02em; line-height: 1; }
+.nav__link { position: relative; font-size: 0.875em; line-height: 1; }
+.nav__link:is([data-current='false'], [aria-pressed='false']) { opacity: 0.6; transition: opacity 0.3s var(--ease-glide); }
+.nav__link:is([data-current='false'], [aria-pressed='false']):hover { opacity: 1; }
+.nav__link:is([data-current='true'], [aria-pressed='true'])::after { content: ''; position: absolute; left: 50%; bottom: -0.55em; width: 3px; height: 3px; margin-left: -1.5px; border-radius: 50%; background: currentColor; }
+.nav__toggle { display: inline-flex; align-items: center; gap: 0.3em; font-size: 0.875em; line-height: 1; }
+.nav__chev { width: 0.7em; height: 0.7em; transition: transform 0.46s var(--ease-glide); }
+.nav[data-open='true'] .nav__chev { transform: rotate(180deg); }
+.nav__panel {
+  position: absolute; top: calc(100% + 0.5em); left: 50%; translate: -50% 0;
+  width: 16em; max-height: 24em; overflow: auto; scrollbar-width: none;
+  background: var(--ink); color: var(--paper); border-radius: 0.4em; padding: 0.5em;
+  clip-path: inset(0 0 100% 0 round 0.4em);
+  transition: clip-path 0.46s var(--ease-glide);
+  pointer-events: none;
+}
+.nav[data-open='true'] .nav__panel { clip-path: inset(0 0 0 0 round 0.4em); transition-duration: 0.62s; pointer-events: auto; }
+.nav__item { display: flex; justify-content: space-between; align-items: baseline; width: 100%; padding: 0.45em 0.5em; border-radius: 0.25em; font-size: 0.875em; text-align: left; }
+.nav__item[data-active='true'] { background: var(--paper); color: var(--ink); }
+.nav__item .eyebrow { opacity: 0.6; }
+@media (max-width: 991px) {
+  .nav { top: auto; bottom: 0; padding: 0 0 1.5em; }
+  .nav__list { background: var(--paper); color: var(--ink); padding: 1em 1.6em; gap: 2em; box-shadow: 0 0.2em 1.5em rgba(0, 0, 0, 0.06); }
+  .nav.is-light .nav__list { color: var(--ink); }
+  .nav__panel { top: auto; bottom: calc(100% + 0.5em); }
+}
+
+html[data-preload] .nav__list > *,
+html[data-preload] .gallery__copy { visibility: hidden; }
+html[data-preload] main { pointer-events: none; }
+
+/* ---------- gallery ---------- */
+.gallery { position: fixed; inset: 0; height: 100svh; overflow: hidden; user-select: none; -webkit-user-select: none; outline: none; }
+.gallery[data-dragging='true'], .gallery[data-dragging='true'] * { user-select: none !important; }
+.gallery__canvas { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.gallery__scribble { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.gallery__copy { position: relative; z-index: 4; height: 100%; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; padding: var(--pad); pointer-events: none; }
+
+.info { width: 20.8333%; display: flex; flex-direction: column; gap: 0.5em; }
+.info__title { font-size: 2.5em; }
+.info__rows { display: flex; flex-direction: column; width: 100%; }
+.info__row { position: relative; display: flex; justify-content: space-between; align-items: flex-start; padding: 0.25em 0; }
+.info__row > [data-tt-rule] { position: absolute; top: 0; left: 0; right: 0; }
+.info__label { padding-top: 0.3em; }
+.info__value { text-align: right; }
+
+/* Bottom-left bookend to the project title: same display size, lines stacked tight. */
+.gallery__intro { display: flex; flex-direction: column; }
+.gallery__intro .display-s { line-height: 1; }
+
+/* Hover note (GalleryPage): hand-written next to the circled disc. The SVG origin is placed on
+   the disc's note anchor every frame (`translate` from JS). Everything steps at 10 fps like the
+   scribble: the arrow draws in, its head flicks on, the words are written left to right, and three
+   noise-displaced takes (`TAKES`) cycle so the ink boils. Hiding erases it all in 0.2 s (NOTE_OUT). */
+.note { position: absolute; left: 0; top: 0; width: 6em; height: 6em; overflow: visible; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+/* Undrawn = the dash sits wholly before the path start. An offset of exactly 1 leaves zero-length
+   dashes at the ends, and their round caps paint a dot at the arrow tip. */
+.note path { stroke-dasharray: 1 2; stroke-dashoffset: 1.01; transition: stroke-dashoffset 0.2s steps(2); }
+/* font-size is in viewBox units, so it scales with the 6em box. */
+.note text { font-family: 'Nanum Pen Script', cursive; font-size: 40px; fill: currentColor; stroke: none; clip-path: inset(-50% 100% -50% 0); transition: clip-path 0.2s steps(2); }
+.note g { animation: note-boil 0.3s steps(1) infinite paused; }
+.note g:nth-of-type(2) { animation-delay: -0.1s; }
+.note g:nth-of-type(3) { animation-delay: -0.2s; }
+.note[data-on] g { animation-play-state: running; }
+.note[data-on] path { stroke-dashoffset: 0; transition: stroke-dashoffset 0.3s steps(3); }
+.note[data-on] path + path { transition: stroke-dashoffset 0.1s steps(1, start) 0.3s; }
+.note[data-on] text { clip-path: inset(-50% 0 -50% 0); transition: clip-path 0.6s steps(6) 0.3s; }
+@keyframes note-boil { 33.333%, 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .note g + g { display: none; } }
+
+@media (max-width: 991px) {
+  .note { display: none; }
+  .info { width: 50%; }
+  .gallery__intro { padding-bottom: 6em; }
+}
+@media (max-width: 767px) {
+  .info { width: 100%; }
+  .info__title, .gallery__intro .display-s { font-size: 2em; }
+}
+
+/* ---------- preloader ---------- */
+.preloader { position: fixed; inset: 0; z-index: 60; pointer-events: none; }
+.preloader__count { position: absolute; left: 0; right: 0; top: var(--pad); display: flex; justify-content: center; align-items: flex-start; line-height: 1; font-variant-numeric: tabular-nums; will-change: transform; }
+.preloader__cell { flex: none; height: 1em; display: block; overflow: hidden; }
+.preloader__shell { display: block; height: 1em; overflow: hidden; will-change: transform; }
+.preloader__drum { display: block; white-space: pre; line-height: 1; will-change: transform; }
+.preloader__side { position: absolute; top: 50%; translate: 0 -50%; display: flex; flex-direction: column; white-space: nowrap; will-change: transform; }
+.preloader__side--left { left: var(--pad); align-items: flex-start; }
+.preloader__side--right { right: var(--pad); align-items: flex-end; }
+.preloader__line { overflow: hidden; }
+.preloader__inner { display: block; line-height: 1.2; will-change: transform; }
+.preloader__years { display: flex; font-variant-numeric: tabular-nums; }
+@media (max-width: 767px) { .preloader__side { display: none; } }
+
+/* ---------- detail ---------- */
+.detail { position: relative; }
+.hero { position: relative; z-index: 2; background: var(--bg); display: flex; flex-direction: column; align-items: center; padding: 3.5em var(--pad) 8svh; }
+/* Night reading light: a warm pool from a lamp just above the frame, falling off into the dark
+   room, so the title and table sit under it. Fixed in place (it doesn't follow the pointer). */
+.hero {
+  --pool: color-mix(in srgb, #ffc48a calc(var(--night, 0) * 15%), transparent);
+  --spill: color-mix(in srgb, #ff9d5c calc(var(--night, 0) * 6%), transparent);
+  background:
+    radial-gradient(ellipse 46% 62% at 50% -6%, var(--pool), transparent 74%),
+    radial-gradient(ellipse 85% 105% at 50% -4%, var(--spill), transparent 78%),
+    var(--bg);
+}
+.hero__title { text-align: center; color: color-mix(in srgb, var(--ink), #ffe7c9 calc(var(--night, 0) * 35%)); }
+.hero__sub { display: flex; gap: 1.5em; justify-content: center; margin-top: 0.6em; }
+.hero__rules { width: 100%; margin-top: 0.6em; }
+.hero__table { width: 100%; }
+.hero__row { position: relative; display: flex; justify-content: space-between; align-items: baseline; padding: 0.3em 0; }
+.hero__row > .rule { position: absolute; top: 0; left: 0; right: 0; }
+.hero__row .v { text-align: right; }
+.hero__cta { display: flex; gap: 0.75em; margin-top: 3em; }
+.btn { position: relative; display: inline-flex; align-items: center; padding: 0.35em 0.2em 0.25em; font-family: var(--font-display); font-size: 1.5em; text-transform: uppercase; letter-spacing: -0.03em; line-height: 1; }
+.btn::before, .btn::after { content: ''; position: absolute; left: 0; right: 0; height: 1px; background: currentColor; }
+.btn::before { top: 0; }
+.btn::after { bottom: 0; }
+.hero__corner { position: absolute; width: 0.7em; height: 0.7em; }
+.hero__corner::before, .hero__corner::after { content: ''; position: absolute; background: currentColor; }
+.hero__corner::before { left: 50%; top: 0; bottom: 0; width: 1px; }
+.hero__corner::after { top: 50%; left: 0; right: 0; height: 1px; }
+
+/* Description: running head, then a 12-col grid. Lede + two-column body on the left
+   (cols 1–8), a sticky rail (Highlights / coda) on the right (cols 9–12). */
+.about { position: relative; z-index: 2; background: var(--bg-dark); padding: 0 var(--pad) 16svh; }
+.about__head { position: relative; display: flex; justify-content: space-between; align-items: baseline; padding: 0.3em 0; }
+.about__head > .rule { position: absolute; top: 0; left: 0; right: 0; }
+.about__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 2em; row-gap: 3em; padding-top: 10svh; align-items: start; }
+.about__open, .about__text, .about__sections { grid-column: 1 / 9; }
+.about__rail { grid-column: 9 / 13; grid-row: 1 / span 2; }
+/* A game needs a wider rail: text takes cols 1–6 in one column, the game cols 7–12. */
+.about__grid[data-game] :is(.about__open, .about__text, .about__sections) { grid-column: 1 / 7; }
+.about__grid[data-game] .about__rail { grid-column: 7 / 13; }
+.about__grid[data-game] .about__text[data-cols] { columns: 1; }
+
+.about__lede { font-family: var(--font-display); font-weight: 400; font-size: 2.75em; line-height: 1.05; letter-spacing: -0.02em; text-wrap: pretty; max-width: 19em; }
+
+.about__aside { font-size: 0.55em; letter-spacing: -0.01em; color: var(--ink-muted); }
+
+/* `((…))` asides: smaller and softer than the sentence around them. */
+.whisper { font-size: 0.8em; color: var(--ink-muted); }
+.about__lede .whisper { font-size: 0.55em; letter-spacing: -0.01em; }
+
+/* Detour: a side story before the main one. Small, muted, ruled off, so it reads as
+   context and the kicker + lede below stay the page's real opening. Spans the same
+   cols 1–8 as the body, in two columns on the body's gutter (2em at body-m = 2.25em). */
+.about__detour { position: relative; padding: 0.7em 0 1.4em; margin-bottom: 5em; color: var(--ink-muted); }
+.about__detour > .rule { position: absolute; top: 0; left: 0; right: 0; }
+.about__detour > .rule.about__detour-end { top: auto; bottom: 0; }
+.about__detour-label { margin-bottom: 0.9em; }
+.about__detour-body { columns: 2; column-gap: 2.25em; }
+.about__detour-body > p { break-inside: avoid; text-wrap: pretty; }
+.about__detour-body > p + p { margin-top: 0.7em; }
+@media (max-width: 767px) { .about__detour-body { columns: 1; } }
+.about__kicker { margin-bottom: 1.2em; }
+
+.about__text p { text-wrap: pretty; }
+.about__text > * + * { margin-top: 1em; }
+.about__text[data-cols] { columns: 2; column-gap: 2em; }
+/* Paragraphs never break across columns: keeps reading order clean and
+   lets SplitText measure each paragraph's lines in one column. */
+.about__text[data-cols] > * { break-inside: avoid; }
+.about__text[data-cols] > :first-child { margin-top: 0; }
+.about__text .about__subhead { margin: 2em 0 0.8em; }
+.about__text .about__subhead:first-child { margin-top: 0; }
+/* Titled sections: one ruled row each, on the page's own columns (subgrid).
+   Wide: the title holds cols 1–3 (sticky while its text scrolls past), text cols 4–8,
+   so the text keeps a ~60ch measure. Beside a game, and on phones, the title sits on top. */
+.about__sections { display: grid; grid-template-columns: subgrid; row-gap: 4.5em; margin-top: 2em; }
+.about__sec { position: relative; grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; align-items: start; padding-top: 1.1em; }
+.about__sec > .rule { position: absolute; top: 0; left: 0; right: 0; }
+.about__sec-title {
+  /* top is in this element's em (2× root): 2.5em = the rail's 5em. */
+  grid-column: 1 / 4; position: sticky; top: 2.5em;
+  font-family: var(--font-display); font-weight: 400; font-size: 2em; line-height: 1.05; letter-spacing: -0.02em; text-wrap: balance;
+}
+.about__sec-body { grid-column: 4 / -1; }
+.about__sec[data-untitled] .about__sec-body { grid-column: 1 / -1; }
+.about__sec-body > * + * { margin-top: 1em; }
+.about__sec-body p { text-wrap: pretty; }
+.about__grid[data-game] .about__sec-title { grid-column: 1 / -1; position: static; margin-bottom: 0.75em; }
+.about__grid[data-game] .about__sec-body { grid-column: 1 / -1; max-width: 34em; }
+@media (max-width: 767px) {
+  .about__sections { row-gap: 3.5em; margin-top: 1em; }
+  .about__sec-title { grid-column: 1 / -1; position: static; margin-bottom: 0.6em; font-size: 1.6em; }
+  .about__ask p { font-size: 1.2em; }
+  .about__sec-body { grid-column: 1 / -1; }
+}
+/* Pull questions: the questions a section turns on, set in the lede's serif on ruled rows. */
+.about__sec-body > .about__ask { margin: 1.6em 0; }
+.about__ask { list-style: none; }
+.about__ask li { position: relative; padding: 0.6em 0 0.7em; overflow: clip; }
+.about__ask li > .rule { position: absolute; top: 0; left: 0; right: 0; }
+/* No balance: each question runs on one line where it fits and only wraps when it must. */
+.about__ask p { font-family: var(--font-display); font-size: 1.3em; line-height: 1.15; letter-spacing: -0.01em; text-wrap: pretty; }
+
+.about__bullets { list-style: none; }
+.about__bullets li { position: relative; padding-left: 1.1em; }
+.about__bullets li + li { margin-top: 0.5em; }
+.about__bullets li::before { content: '–'; position: absolute; left: 0; top: 0; }
+
+.about__rail { position: sticky; top: 5em; }
+.about__rail-head { padding-bottom: 0.9em; }
+.about__list { list-style: none; }
+.about__list li { position: relative; padding: 0.7em 0 1em; text-wrap: pretty; }
+.about__list li > .rule { position: absolute; top: 0; left: 0; right: 0; }
+.about__list li:last-child { padding-bottom: 0; }
+.about__list-label { opacity: 0.6; margin-bottom: 0.5em; }
+/* Playable game in the rail: 16:9 frame, click-to-play cover, controls as ruled rows. */
+.game__slot { position: relative; }
+/* Same late-90s window as the website cards (.site, below), without the whole-card link. */
+/* Bevels follow the classic 4-shade recipe (edge / shadow / face / highlight), tinted to the page's
+   warm greys by day and to a dark grey case at night. --edge stays black both ways (by day it equals --ink). */
+.site, .game__win {
+  --face: color-mix(in srgb, #e4e1dd, #262320 calc(var(--night, 0) * 100%));
+  --hi: color-mix(in srgb, #fbfaf8, #48433d calc(var(--night, 0) * 100%));
+  --lo: color-mix(in srgb, #8e8a85, #0b0a09 calc(var(--night, 0) * 100%));
+  --well: color-mix(in srgb, #fff, #0e0d0c calc(var(--night, 0) * 100%));
+  --edge: #000;
+  --out: inset -1px -1px var(--edge), inset 1px 1px var(--hi), inset -2px -2px var(--lo), inset 2px 2px var(--face);
+  --in: inset -1px -1px var(--hi), inset 1px 1px var(--lo), inset -2px -2px var(--face), inset 2px 2px var(--edge);
+}
+/* Screen glow: a blurred copy of what's on the screen, behind the window, spilling onto the desk.
+   Only visible at night (a monitor in a dark room); brighter while the window is lifted. */
+.screen-glow {
+  position: absolute; inset: 6% 4% -8%; z-index: 0; pointer-events: none;
+  background: var(--glow-bg, #000) center / cover no-repeat;
+  filter: blur(2.6em) saturate(1.35);
+  opacity: calc(var(--night, 0) * 0.42);
+  transition: opacity 0.5s var(--ease-glide);
+}
+.game__win {
+  position: relative; display: flex; flex-direction: column; gap: 3px; padding: 4px; background: var(--face); color: var(--ink);
+  box-shadow: var(--out), 0 0 0 0 var(--edge); font-size: 0.8125em; line-height: 1.2;
+  transition: box-shadow 0.5s var(--ease-glide);
+}
+.game__btn { display: inline-flex; align-items: center; gap: 0.45em; border: 0; font: inherit; color: inherit; cursor: pointer; }
+.game__btn svg { width: 0.75em; height: 0.75em; }
+.game__btn:active { box-shadow: var(--in); }
+.game__btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+@media (hover: hover) and (pointer: fine) { .game__btn:hover { box-shadow: var(--in); } }
+.game__win .game__view { aspect-ratio: 16 / 9; background: var(--game-bg, #000); }
+.game__slot:has(.game__win:hover) > .screen-glow { opacity: calc(var(--night, 0) * 0.6); }
+/* Lifted out of the slot: the light goes with it. */
+.game__slot:has(> [data-big]) > .screen-glow { opacity: 0; }
+.game__poster { position: absolute; inset: 2px; width: calc(100% - 4px); height: calc(100% - 4px); object-fit: cover; }
+.game__win .game__view iframe { position: absolute; inset: 2px; width: calc(100% - 4px); height: calc(100% - 4px); border: 0; display: block; }
+/* While the slot is empty it reads as the sunken hole the window was lifted out of. */
+.game__slot:has(> [data-big]) {
+  background: rgba(0, 0, 0, calc(0.06 + var(--night, 0) * 0.14));
+  box-shadow: inset 1px 1px rgba(0, 0, 0, calc(0.25 + var(--night, 0) * 0.35)), inset -1px -1px rgba(255, 255, 255, calc(0.5 - var(--night, 0) * 0.42));
+}
+/* Enlarged: a centred 16:9 window over a backdrop, up to 88vw / 88svh. Sized from the
+   viewport (like the rail, via the vw root font) so it's always bigger than the rail.
+   --chrome / --chrome-x (toolbar + status height, frame side padding) are measured in GameEmbed. */
+/* The sticky rail is its own stacking context, so it's lifted too (else later text paints on top). */
+html[data-game-big] { overflow: hidden; }
+html[data-game-big] .about { z-index: 70; }
+html[data-game-big] .about__rail--game { z-index: 3; }
+.game__backdrop { position: fixed; inset: 0; z-index: 2; background: rgba(20, 18, 16, 0.72); visibility: hidden; opacity: 0; }
+.game__win[data-big] {
+  /* Centred with inset + auto margins, not translate: GSAP owns the transform for the FLIP. */
+  position: fixed; z-index: 3; inset: 0; margin: auto; height: fit-content;
+  width: min(88vw, calc((88svh - var(--chrome, 8em)) * 16 / 9 + var(--chrome-x, 12px)));
+  box-shadow: var(--out), 0.6em 0.6em 0 0 #000;
+}
+/* Portrait screens: fill the height so the game can use its thumb-control bands. */
+@media (max-aspect-ratio: 1 / 1) {
+  .game__win[data-big] { width: calc(100vw - 2 * var(--pad)); height: calc(100svh - 2 * var(--pad)); box-shadow: var(--out); }
+  .game__win[data-big] .game__view { aspect-ratio: auto; flex: 1; }
+}
+.game__cover { position: absolute; inset: 0; display: grid; place-items: center; width: 100%; border: 0; padding: 0; background: rgba(0, 0, 0, 0.35); color: #fff; cursor: pointer; transition: background 0.3s; }
+.game__cover:hover { background: rgba(0, 0, 0, 0.2); }
+.game__cover:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.game__prompt { padding: 0.55em 1em 0.5em; background: #000; color: #fff; text-transform: uppercase; letter-spacing: 0.04em; transition: transform 0.3s; }
+.game__cover:hover .game__prompt { transform: scale(1.05); }
+
+.game__keys { margin-top: 1.2em; }
+.game__keys > div { position: relative; display: grid; grid-template-columns: 5.5em 1fr; gap: 1em; align-items: baseline; padding: 0.55em 0 0.5em; }
+.game__keys .rule { position: absolute; top: 0; left: 0; right: 0; }
+.game__keys dt { opacity: 0.6; }
+/* Touch-only devices get the game's own thumb controls; the keyboard list is noise there. */
+@media (hover: none) and (pointer: coarse) { .game__keys { display: none; } }
+
+/* Coda: closing line in the lede's voice. Without a rail it takes the rail slot,
+   level with the end of the body; otherwise it closes under the body. */
+.about__coda { grid-column: 1 / 9; font-family: var(--font-display); font-weight: 400; font-size: 1.75em; line-height: 1.1; letter-spacing: -0.02em; }
+.about__coda[data-solo] { grid-column: 9 / 13; grid-row: 2; align-self: end; }
+.about__coda span { display: block; }
+
+/* Website previews: framed browser windows under the description, whole card links out. */
+.sites { padding-top: 12svh; }
+.sites__head { position: relative; padding: 0.3em 0 0.9em; }
+.sites__head > .rule { position: absolute; top: 0; left: 0; right: 0; }
+.sites__grid { list-style: none; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 2em; row-gap: 2.5em; }
+.sites__grid > li { position: relative; grid-column: span 6; }
+.sites__grid[data-count='1'] > li { grid-column: 1 / 9; }
+.sites__grid > li:has(.site:is(:hover, :focus-visible)) > .screen-glow { opacity: calc(var(--night, 0) * 0.6); }
+.site {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; gap: 3px; padding: 4px; background: var(--face); color: var(--ink);
+  box-shadow: var(--out), 0 0 0 0 var(--edge); font-size: 0.8125em; line-height: 1.2;
+  transition: translate 0.35s var(--ease-glide), box-shadow 0.35s var(--ease-glide);
+}
+.site__toolbar { display: flex; align-items: center; gap: 0.5em; padding: 0.3em 0.2em; }
+.site__label { flex: none; color: var(--ink-soft); }
+.site__field { flex: 1; min-width: 0; display: flex; align-items: center; gap: 0.45em; padding: 0.35em 0.6em; background: var(--well); box-shadow: var(--in); }
+.site__field svg { flex: none; width: 1em; height: 1em; color: var(--ink-soft); }
+.site__href { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.site__btn { flex: none; padding: 0.35em 0.9em; background: var(--face); box-shadow: var(--out); }
+.site__view { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--well); padding: 2px; box-shadow: var(--in); }
+.site__view img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+/* A lit screen in a dark room still reads bright; just take the edge off white pages. */
+.site__view img, .game__poster { filter: brightness(calc(1 - var(--night, 0) * 0.12)); }
+.site__status { display: flex; gap: 3px; }
+.site__cell { padding: 0.3em 0.6em; box-shadow: inset -1px -1px var(--hi), inset 1px 1px var(--lo); }
+.site__cell:first-child { flex: 1; color: var(--ink-soft); }
+.site__go { display: inline-flex; align-items: center; gap: 0.4em; }
+.site__go svg { width: 0.75em; height: 0.75em; transition: translate 0.5s var(--ease-glide); }
+.site:focus-visible { outline-offset: 0.5em; }
+@media (hover: hover) and (pointer: fine) {
+  .site:is(:hover, :focus-visible) { translate: -0.3em -0.3em; box-shadow: var(--out), 0.3em 0.3em 0 0 var(--edge); }
+  .site:is(:hover, :focus-visible) .site__btn { box-shadow: var(--in); }
+  .site:is(:hover, :focus-visible) .site__go svg { translate: 0.15em -0.15em; }
+}
+.site:active { translate: 0 0; box-shadow: var(--out), 0 0 0 0 var(--edge); }
+@media (max-width: 767px) {
+  .sites { padding-top: 8svh; }
+  .sites__grid > li, .sites__grid[data-count='1'] > li { grid-column: 1 / -1; }
+}
+
+/* overflow: clip (not hidden) so the sticky frame keeps working. */
+.next { position: relative; z-index: 2; background: var(--bg-dark); height: 124svh; overflow: clip; }
+.next__frame { position: sticky; top: 0; height: 100svh; }
+.next__rule { position: absolute; left: var(--pad); right: var(--pad); }
+.next__kicker { position: absolute; left: var(--pad); }
+.next__word { position: absolute; white-space: nowrap; line-height: 1; will-change: transform; }
+.next__word > span { display: block; }
+.next__stage { position: absolute; inset: 0; pointer-events: none; }
+.next__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.next__hint { position: absolute; right: var(--pad); bottom: 1.5em; display: flex; align-items: center; gap: 0.5em; text-align: right; }
+.next__hint svg { width: 1em; height: 1em; }
+.next[data-over] { cursor: pointer; }
+
+/* ---------- about ---------- */
+.profile { position: relative; padding: 3.5em var(--pad) 0; }
+.profile .rule { position: absolute; top: 0; left: 0; right: 0; }
+.profile__inline-link { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 0.4s var(--ease-glide); }
+.profile__inline-link:is(:hover, :focus-visible) { background-size: 100% 1px; }
+
+.profile__hero { display: flex; flex-direction: column; align-items: center; min-height: 70svh; }
+.profile__name { text-align: center; }
+.profile__sub { margin-top: 0.6em; text-align: center; }
+.profile__facts { width: 100%; margin-top: auto; padding-top: 3em; }
+.profile__row { position: relative; display: flex; justify-content: space-between; align-items: baseline; gap: 1em; padding: 0.3em 0; }
+.profile__row .v { text-align: right; }
+
+/* Ask-about-me chat (About hero + nav dialog): a ruled interview transcript. Questions in the display
+   serif, answers in the body face. Before the first question the suggestions sit on the input, one per
+   rule, as ready-made questions. Both views are the same inverted panel (ink by day, the lit card at night);
+   everything inside derives from currentColor, so the inversion is just the two colours below. */
+.ask {
+  --soft: color-mix(in srgb, currentColor 60%, transparent); --hair: color-mix(in srgb, currentColor 22%, transparent);
+  display: flex; flex-direction: column; width: min(100%, 46em); margin: 3.5em auto 0; padding: 1.1em 1.25em 0.6em; border-radius: 0.4em;
+  background: var(--ink); color: var(--bg); text-align: left;
+}
+.ask ::selection { background: var(--bg); color: var(--ink); }
+.ask .rule { position: absolute; top: 0; left: 0; right: 0; }
+/* The panel's edge is the frame, so only the input gets a rule: the line between reading and asking. */
+.ask__head { display: flex; justify-content: space-between; align-items: baseline; gap: 1em; }
+.ask__tools { display: flex; gap: 1.6em; }
+.ask__note, .ask__tool { color: var(--soft); }
+.ask__tool { transition: color 0.3s var(--ease-glide); }
+.ask__tool:is(:hover, :focus-visible) { color: inherit; }
+.ask__log {
+  display: flex; flex-direction: column; height: 22em; padding: 1.5em 0 1.75em;
+  overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none;
+  mask-image: linear-gradient(transparent, #000 1.5em, #000 calc(100% - 1.75em), transparent);
+}
+.ask__log::-webkit-scrollbar { display: none; }
+.ask__greeting { max-width: 30em; color: var(--soft); text-wrap: pretty; }
+/* Pushed down onto the input, so picking one and typing your own happen in the same place. */
+.ask__picks { list-style: none; margin-top: auto; padding-top: 1.5em; }
+.ask__picks li { position: relative; }
+.ask__picks .rule { background: var(--hair); transition: background 0.3s var(--ease-glide); }
+.ask__picks li:has(.ask__pick:is(:hover, :focus-visible)) .rule { background: currentColor; }
+.ask__pick {
+  display: flex; justify-content: space-between; align-items: center; gap: 1em; width: 100%; padding: 0.45em 0 0.5em;
+  font-family: var(--font-display); font-size: 1.6em; line-height: 1.1; letter-spacing: -0.02em; text-align: left;
+}
+.ask__pick svg { flex: none; width: 0.45em; height: 0.45em; opacity: 0.3; translate: -0.25em 0; transition: opacity 0.3s var(--ease-glide), translate 0.5s var(--ease-glide); }
+.ask__pick:is(:hover, :focus-visible) svg { opacity: 1; translate: 0; }
+.ask__pick:focus-visible { outline: 0; }
+.ask__q { font-family: var(--font-display); font-size: 1.6em; line-height: 1.1; letter-spacing: -0.02em; max-width: 24em; text-wrap: pretty; overflow-wrap: anywhere; }
+.ask__a + .ask__q { margin-top: 1.1em; padding-top: 0.55em; border-top: 1px solid var(--hair); }
+.ask__a { margin-top: 0.6em; max-width: 36em; font-size: 1.125em; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+.ask__a[data-error] { color: var(--soft); }
+.ask__thinking { color: var(--soft); animation: ask-pulse 1.4s ease-in-out infinite; }
+/* The streaming caret; at night it glows like the lamp's filament. */
+.ask__caret { display: inline-block; width: 0.45em; height: 0.95em; margin-left: 0.12em; vertical-align: -0.12em; background: color-mix(in srgb, currentColor, #ff7a30 calc(var(--night, 0) * 100%)); animation: ask-blink 1s step-end infinite; }
+@keyframes ask-pulse { 50% { opacity: 0.35; } }
+@keyframes ask-blink { 50% { opacity: 0; } }
+.ask__form { position: relative; display: flex; align-items: flex-end; gap: 1em; padding: 0.75em 0 0.65em; }
+.ask__form > .rule { transition: height 0.3s var(--ease-glide); }
+.ask__form:focus-within > .rule { height: 2px; }
+.ask__input {
+  flex: 1; min-width: 0; min-height: 1.45em; max-height: 6em; padding: 0; margin: 0 0 0.1em;
+  border: 0; outline: 0; background: none; resize: none; field-sizing: content;
+  font: inherit; font-size: 1.125em; line-height: 1.45; color: inherit;
+}
+.ask__input::placeholder { color: var(--soft); opacity: 1; }
+.ask__send { display: inline-flex; align-items: center; gap: 0.3em; font-family: var(--font-display); font-size: 1.5em; line-height: 1; text-transform: uppercase; letter-spacing: -0.03em; }
+.ask__send svg { width: 0.6em; height: 0.6em; }
+.ask__send:disabled { opacity: 0.3; cursor: default; }
+@media (prefers-reduced-motion: reduce) {
+  .ask__thinking, .ask__caret { animation: none; }
+}
+/* Nav dialog: the same panel as a sheet that drops out of the nav like the Index panel
+   (and rises from the bottom nav on tablets and phones).
+   Open/close are CSS transitions on the native <dialog> (@starting-style + allow-discrete). */
+.ask-dialog {
+  --shut: inset(0 0 100% 0 round 0.4em);
+  inset: 0 0 auto; margin: 3.25em auto 0; padding: 0; border: 0; border-radius: 0.4em;
+  width: min(40em, 100vw - 2 * var(--pad)); max-width: none; max-height: min(43em, 100svh - 4.25em);
+  background: none; overflow: hidden;
+  clip-path: var(--shut);
+  transition: clip-path 0.46s var(--ease-glide), overlay 0.46s allow-discrete, display 0.46s allow-discrete;
+}
+.ask-dialog[open] { clip-path: inset(0 round 0.4em); transition-duration: 0.62s; }
+@starting-style { .ask-dialog[open] { clip-path: var(--shut); } }
+.ask-dialog::backdrop { background: rgb(0 0 0 / 0); transition: background 0.46s var(--ease-glide), overlay 0.46s allow-discrete, display 0.46s allow-discrete; }
+.ask-dialog[open]::backdrop { background: rgb(0 0 0 / 0.32); }
+@starting-style { .ask-dialog[open]::backdrop { background: rgb(0 0 0 / 0); } }
+/* Sized by the conversation: grows with each answer up to the cap, then the log scrolls. */
+.ask-dialog .ask { width: auto; max-height: inherit; margin: 0; border-radius: 0; }
+.ask-dialog .ask__log { height: auto; min-height: 0; }
+@media (max-width: 991px) {
+  .ask-dialog { --shut: inset(100% 0 0 0 round 0.6em 0.6em 0 0); inset: auto 0 0; margin: 0; width: 100%; max-height: min(43em, 100svh - 3em); border-radius: 0.6em 0.6em 0 0; }
+  .ask-dialog[open] { clip-path: inset(0 round 0.6em 0.6em 0 0); }
+  .ask-dialog .ask { padding-inline: var(--pad); }
+}
+.profile__intro { display: grid; grid-template-columns: 5fr 7fr; gap: 2em; padding: 8em 0; align-items: start; }
+.profile__portrait { position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; background: var(--bg-dark); display: grid; place-items: center; }
+.profile__portrait img { width: 100%; height: 100%; object-fit: cover; display: block; filter: sepia(calc(var(--night, 0) * 0.18)) brightness(calc(1 - var(--night, 0) * 0.1)); }
+/* Night: lit by a lamp up and to the left. ::before darkens the far side, ::after is the warm key light. */
+.profile__portrait::before, .profile__portrait::after { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: var(--night, 0); }
+.profile__portrait::before { background: radial-gradient(ellipse 125% 105% at 12% 6%, transparent 32%, rgba(6, 5, 4, 0.78) 100%); mix-blend-mode: multiply; }
+.profile__portrait::after { background: radial-gradient(ellipse 110% 80% at 8% 0%, rgba(255, 186, 118, 0.2), rgba(255, 186, 118, 0.06) 45%, transparent 78%); mix-blend-mode: screen; }
+.profile__portrait[data-empty='true'] { color: var(--paper); }
+.profile__bio { display: flex; flex-direction: column; gap: 1.2em; max-width: 42em; }
+.profile__bio .body-m { max-width: 32em; }
+.profile__statement { margin-bottom: 0.6em; }
+
+.profile__block { position: relative; padding: 0.5em 0 6em; }
+.profile__block-body { margin-top: 2em; }
+.profile__entry { position: relative; display: grid; grid-template-columns: 2fr 7fr 3fr; gap: 1em; padding: 0.8em 0 1.2em; }
+.profile__when { padding-top: 0.45em; font-variant-numeric: tabular-nums; }
+.profile__what { display: flex; flex-direction: column; gap: 0.2em; }
+.profile__summary { margin-top: 0.4em; max-width: 36em; color: var(--ink-soft); }
+.profile__where { padding-top: 0.45em; text-align: right; }
+
+.profile__skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(12em, 1fr)); gap: 2em; }
+.profile__skill { display: flex; flex-direction: column; gap: 0.6em; }
+.profile__skill ul { list-style: none; display: flex; flex-direction: column; gap: 0.15em; }
+
+.profile__contact { position: relative; margin: 0 calc(var(--pad) * -1); padding: 0.5em var(--pad) 10svh; background: var(--bg-dark); display: flex; flex-direction: column; align-items: center; gap: 1.5em; text-align: center; }
+.profile__contact > .eyebrow, .profile__contact > [data-tt-mask]:first-of-type { align-self: flex-start; }
+.profile__prompt { display: block; margin-top: 12svh; white-space: nowrap; }
+/* Night: the prompt is an unlit sign (dimmed ink). Hover/focus heats it like the lamp's filament:
+   ember first, then warm white with a glow. --heat 0 → 0.35 ember → 1 warm. By day --night is 0
+   and --heat stays 0, so the colour is plain ink. */
+.profile__prompt {
+  --ember: #ff6a2c; --warm: #ffe6c6;
+  color: color-mix(in oklab,
+    color-mix(in oklab, color-mix(in srgb, var(--ink), var(--bg-dark) calc(var(--night, 0) * 36%)), var(--ember) calc(clamp(0, var(--heat) / 0.35, 1) * 100%)),
+    var(--warm) calc(clamp(0, (var(--heat) - 0.35) / 0.65, 1) * 100%));
+  text-shadow:
+    0 0 0.05em color-mix(in srgb, #ff9a50 calc(var(--heat) * 70%), transparent),
+    0 0 0.4em color-mix(in srgb, #ff7a30 calc(var(--heat) * 38%), transparent);
+  transition: transform 0.45s var(--ease-elastic), --heat 0.6s cubic-bezier(0.4, 0, 0.6, 1);
+}
+html[data-night] .profile__prompt:is(:hover, :focus-visible) { --heat: 1; transition: transform 0.45s var(--ease-elastic), --heat 1.1s cubic-bezier(0.3, 0, 0.2, 1); }
+.profile__prompt.fit { font-size: min(6em, calc(86vw / (var(--chars, 8) * 0.4))); }
+.profile__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75em; margin-top: 1em; }
+
+@media (max-width: 991px) {
+  .profile__contact { padding-bottom: 8em; }
+}
+@media (max-width: 767px) {
+  .profile { padding-top: 3em; }
+  .profile__intro { grid-template-columns: 1fr; padding: 5em 0; }
+  .profile__entry { grid-template-columns: 1fr; gap: 0.3em; }
+  .profile__where { text-align: left; padding-top: 0; }
+}
+
+/* Fit long single-line titles to the viewport (≈0.36em per uppercase glyph). */
+.fit { font-size: min(var(--fit-max, 8em), calc(94vw / (var(--chars, 8) * 0.37))); }
+.next__word.fit { --fit-max: 6em; }
+
+@media (max-width: 767px) {
+  .next__word { left: 50% !important; }
+  .hero { padding-top: 3em; padding-bottom: 6svh; }
+  .hero__cta { margin-top: 2em; }
+  .about__lede { font-size: 1.75em; }
+  .about__coda { font-size: 1.4em; }
+  .about__text[data-cols] { columns: 1; }
+}
+
+/* Tablet and down: one stack (lede → body → rail); the rail stops being sticky. */
+@media (max-width: 991px) {
+  .about__open, .about__text, .about__sections, .about__rail, .about__coda, .about__coda[data-solo] { grid-column: 1 / -1; grid-row: auto; }
+  .about__grid[data-game] :is(.about__open, .about__text, .about__sections, .about__rail) { grid-column: 1 / -1; }
+  .about__rail { position: static; }
+  .about__coda[data-solo] { align-self: start; }
+  .about__grid { row-gap: 2.5em; padding-top: 7svh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+}

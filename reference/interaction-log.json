@@ -1,0 +1,740 @@
+[
+ {
+  "k": "intro:state",
+  "v": {
+   "running": false,
+   "inView": true,
+   "ready": true,
+   "flightLock": false,
+   "renderScale": 1,
+   "pixelRatio": 1,
+   "drawingBuffer": [
+    1440,
+    900
+   ],
+   "visibleDiscs": 7,
+   "poolSize": 12,
+   "activeIndex": 0,
+   "scribblePhase": "hidden",
+   "flowVelocity": 0,
+   "dragVelocity": 0,
+   "springVelocity": 0,
+   "transmissionScale": 0.5,
+   "threeRevision": "178",
+   "busy": {
+    "dragging": false,
+    "pointerActive": false,
+    "inertia": false,
+    "settleSpring": false,
+    "flow": false,
+    "tween": false,
+    "residual": false,
+    "forceFrames": false,
+    "scribble": false
+   }
+  }
+ },
+ {
+  "k": "hover:read",
+  "v": {
+   "index": 0,
+   "opens": true,
+   "clientX": 720.3899540758857,
+   "clientY": 434.1310860784342,
+   "radius": 301.286344847107
+  }
+ },
+ {
+  "k": "hover:state",
+  "v": {
+   "running": true,
+   "inView": true,
+   "ready": true,
+   "flightLock": false,
+   "renderScale": 1,
+   "pixelRatio": 1,
+   "drawingBuffer": [
+    1440,
+    900
+   ],
+   "visibleDiscs": 7,
+   "poolSize": 12,
+   "activeIndex": 0,
+   "scribblePhase": "on",
+   "flowVelocity": 0,
+   "dragVelocity": 0,
+   "springVelocity": 0,
+   "transmissionScale": 0.5,
+   "threeRevision": "178",
+   "busy": {
+    "dragging": false,
+    "pointerActive": false,
+    "inertia": false,
+    "settleSpring": false,
+    "flow": false,
+    "tween": false,
+    "residual": true,
+    "forceFrames": false,
+    "scribble": true
+   }
+  }
+ },
+ {
+  "k": "drag-disc:held",
+  "v": {
+   "running": true,
+   "inView": true,
+   "ready": true,
+   "flightLock": false,
+   "renderScale": 1,
+   "pixelRatio": 1,
+   "drawingBuffer": [
+    1440,
+    900
+   ],
+   "visibleDiscs": 7,
+   "poolSize": 12,
+   "activeIndex": 0,
+   "scribblePhase": "on",
+   "flowVelocity": 0,
+   "dragVelocity": 0,
+   "springVelocity": 0,
+   "transmissionScale": 0.5,
+   "threeRevision": "178",
+   "busy": {
+    "dragging": true,
+    "pointerActive": true,
+    "inertia": false,
+    "settleSpring": false,
+    "flow": false,
+    "tween": false,
+    "residual": false,
+    "forceFrames": false,
+    "scribble": true
+   }
+  }
+ },
+ {
+  "k": "drag-carousel:held",
+  "v": {
+   "running": true,
+   "inView": true,
+   "ready": true,
+   "flightLock": false,
+   "renderScale": 1,
+   "pixelRatio": 1,
+   "drawingBuffer": [
+    1440,
+    900
+   ],
+   "visibleDiscs": 8,
+   "poolSize": 12,
+   "activeIndex": 2,
+   "scribblePhase": "hidden",
+   "flowVelocity": 1.37,
+   "dragVelocity": 0.0444,
+   "springVelocity": 0,
+   "transmissionScale": 0.5,
+   "threeRevision": "178",
+   "busy": {
+    "dragging": true,
+    "pointerActive": true,
+    "inertia": true,
+    "settleSpring": false,
+    "flow": true,
+    "tween": false,
+    "residual": true,
+    "forceFrames": false,
+    "scribble": false
+   }
+  }
+ },
+ {
+  "k": "drag-carousel:after",
+  "v": [
+   {
+    "a": 2,
+    "d": 0.0444,
+    "sp": 0,
+    "f": 1.37,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0.0351,
+    "sp": 0,
+    "f": 1.834,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0.0278,
+    "sp": 0,
+    "f": 1.896,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0.022,
+    "sp": 0,
+    "f": 1.834,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0.0061,
+    "sp": 0,
+    "f": 1.056,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0.0048,
+    "sp": 0,
+    "f": 0.921,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0.0038,
+    "sp": 0,
+    "f": 0.798,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0.0034,
+    "sp": 0,
+    "f": 0.741,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0.0027,
+    "sp": 0,
+    "f": 0.637,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0.0021,
+    "sp": 0,
+    "f": 0.545,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0.0017,
+    "sp": 0,
+    "f": 0.464,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0.0013,
+    "sp": 0,
+    "f": 0.395,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0.0011,
+    "sp": 0,
+    "f": 0.334,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0.0008,
+    "sp": 0,
+    "f": 0.282,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0.0007,
+    "sp": 0,
+    "f": 0.238,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0.0005,
+    "sp": 0,
+    "f": 0.2,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0.0004,
+    "sp": 0,
+    "f": 0.167,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": -0.3132,
+    "f": 0.031,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": -0.5003,
+    "f": -0.174,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": -0.5883,
+    "f": -0.339,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": -0.6037,
+    "f": -0.448,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": -0.5693,
+    "f": -0.502,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": -0.5038,
+    "f": -0.51,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": -0.4224,
+    "f": -0.497,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": -0.3369,
+    "f": -0.471,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": -0.2542,
+    "f": -0.433,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": -0.2158,
+    "f": -0.411,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": -0.147,
+    "f": -0.364,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": -0.09,
+    "f": -0.314,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": -0.045,
+    "f": -0.265,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": -0.0115,
+    "f": -0.218,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": 0.0117,
+    "f": -0.176,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": 0.0265,
+    "f": -0.138,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": 0.0344,
+    "f": -0.105,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": 0.0372,
+    "f": -0.078,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": 0.0362,
+    "f": -0.057,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": 0.0329,
+    "f": -0.039,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": 0.0283,
+    "f": -0.026,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": 0.0257,
+    "f": -0.021,
+    "ph": "hidden"
+   },
+   {
+    "a": 2,
+    "d": 0,
+    "sp": 0.0204,
+    "f": 0,
+    "ph": "hidden"
+   }
+  ]
+ },
+ {
+  "k": "wheel:after-burst",
+  "v": {
+   "running": true,
+   "inView": true,
+   "ready": true,
+   "flightLock": false,
+   "renderScale": 1,
+   "pixelRatio": 1,
+   "drawingBuffer": [
+    1440,
+    900
+   ],
+   "visibleDiscs": 11,
+   "poolSize": 12,
+   "activeIndex": 7,
+   "scribblePhase": "hidden",
+   "flowVelocity": 0,
+   "dragVelocity": 0,
+   "springVelocity": 0,
+   "transmissionScale": 0.5,
+   "threeRevision": "178",
+   "busy": {
+    "dragging": false,
+    "pointerActive": false,
+    "inertia": false,
+    "settleSpring": false,
+    "flow": false,
+    "tween": false,
+    "residual": true,
+    "forceFrames": false,
+    "scribble": false
+   }
+  }
+ },
+ {
+  "k": "wheel:after-reverse",
+  "v": {
+   "running": true,
+   "inView": true,
+   "ready": true,
+   "flightLock": false,
+   "renderScale": 1,
+   "pixelRatio": 1,
+   "drawingBuffer": [
+    1440,
+    900
+   ],
+   "visibleDiscs": 12,
+   "poolSize": 12,
+   "activeIndex": 6,
+   "scribblePhase": "hidden",
+   "flowVelocity": -0.058,
+   "dragVelocity": 0,
+   "springVelocity": 0,
+   "transmissionScale": 0.5,
+   "threeRevision": "178",
+   "busy": {
+    "dragging": false,
+    "pointerActive": false,
+    "inertia": false,
+    "settleSpring": false,
+    "flow": true,
+    "tween": false,
+    "residual": true,
+    "forceFrames": false,
+    "scribble": false
+   }
+  }
+ },
+ {
+  "k": "wheel:samples",
+  "v": [
+   {
+    "a": 0,
+    "f": 3.093,
+    "tw": true
+   },
+   {
+    "a": 0,
+    "f": 4.779,
+    "tw": true
+   },
+   {
+    "a": 1,
+    "f": 6.729,
+    "tw": true
+   },
+   {
+    "a": 1,
+    "f": 5.576,
+    "tw": true
+   },
+   {
+    "a": 1,
+    "f": 1.728,
+    "tw": true
+   },
+   {
+    "a": 1,
+    "f": 1.287,
+    "tw": true
+   },
+   {
+    "a": 1,
+    "f": 0.95,
+    "tw": true
+   },
+   {
+    "a": 1,
+    "f": 0.694,
+    "tw": false
+   },
+   {
+    "a": 1,
+    "f": 0.506,
+    "tw": false
+   },
+   {
+    "a": 1,
+    "f": 0.369,
+    "tw": false
+   },
+   {
+    "a": 1,
+    "f": 0.269,
+    "tw": false
+   },
+   {
+    "a": 1,
+    "f": 0.196,
+    "tw": false
+   }
+  ]
+ },
+ {
+  "k": "wheel:scrollY",
+  "v": [
+   0,
+   900,
+   900
+  ]
+ },
+ {
+  "k": "click:state",
+  "v": {
+   "running": true,
+   "inView": true,
+   "ready": true,
+   "flightLock": false,
+   "renderScale": 1,
+   "pixelRatio": 1,
+   "drawingBuffer": [
+    1440,
+    900
+   ],
+   "visibleDiscs": 8,
+   "poolSize": 12,
+   "activeIndex": 1,
+   "scribblePhase": "on",
+   "flowVelocity": 0,
+   "dragVelocity": 0,
+   "springVelocity": 0,
+   "transmissionScale": 0.5,
+   "threeRevision": "178",
+   "busy": {
+    "dragging": false,
+    "pointerActive": false,
+    "inertia": false,
+    "settleSpring": false,
+    "flow": false,
+    "tween": false,
+    "residual": false,
+    "forceFrames": true,
+    "scribble": true
+   }
+  }
+ },
+ {
+  "k": "text:0",
+  "v": {
+   "text": "Backrooms",
+   "lineTf": "none",
+   "vis": "visible",
+   "rule": "none"
+  }
+ },
+ {
+  "k": "text:1",
+  "v": {
+   "text": "Backrooms",
+   "lineTf": "matrix(1, 0, 0, 1, 0, -37.7799)",
+   "vis": "visible",
+   "rule": "matrix(0.0582, 0, 0, 1, 0, 0)"
+  }
+ },
+ {
+  "k": "text:2",
+  "v": {
+   "text": "Backrooms",
+   "lineTf": "matrix(1, 0, 0, 1, 0, -38.9872)",
+   "vis": "visible",
+   "rule": "matrix(0.0205, 0, 0, 1, 0, 0)"
+  }
+ },
+ {
+  "k": "text:3",
+  "v": {
+   "text": "Backrooms",
+   "lineTf": "matrix(1, 0, 0, 1, 0, -39.6)",
+   "vis": "visible",
+   "rule": "matrix(0, 0, 0, 1, 0, 0)"
+  }
+ },
+ {
+  "k": "text:4",
+  "v": {
+   "text": "Backrooms",
+   "lineTf": "matrix(1, 0, 0, 1, 0, -39.6)",
+   "vis": "visible",
+   "rule": "matrix(0, 0, 0, 1, 0, 0)"
+  }
+ },
+ {
+  "k": "text:5",
+  "v": {
+   "text": "The Invite",
+   "lineTf": "matrix(1, 0, 0, 1, 0, 26.1367)",
+   "vis": "visible",
+   "rule": "matrix(0.1774, 0, 0, 1, 0, 0)"
+  }
+ },
+ {
+  "k": "text:6",
+  "v": {
+   "text": "The Invite",
+   "lineTf": "matrix(1, 0, 0, 1, 0, 9.61795)",
+   "vis": "visible",
+   "rule": "matrix(0.6142, 0, 0, 1, 0, 0)"
+  }
+ },
+ {
+  "k": "text:7",
+  "v": {
+   "text": "The Invite",
+   "lineTf": "matrix(1, 0, 0, 1, 0, 1.35911)",
+   "vis": "visible",
+   "rule": "matrix(0.9536, 0, 0, 1, 0, 0)"
+  }
+ },
+ {
+  "k": "text:8",
+  "v": {
+   "text": "The Invite",
+   "lineTf": "matrix(1, 0, 0, 1, 0, 0.710721)",
+   "vis": "visible",
+   "rule": "matrix(0.9748, 0, 0, 1, 0, 0)"
+  }
+ },
+ {
+  "k": "text:9",
+  "v": {
+   "text": "The Invite",
+   "lineTf": "matrix(1, 0, 0, 1, 0, 0.009702)",
+   "vis": "visible",
+   "rule": "matrix(0.999, 0, 0, 1, 0, 0)"
+  }
+ },
+ {
+  "k": "mobile:state",
+  "v": {
+   "running": true,
+   "inView": true,
+   "ready": true,
+   "flightLock": false,
+   "renderScale": 1,
+   "pixelRatio": 1,
+   "drawingBuffer": [
+    390,
+    844
+   ],
+   "visibleDiscs": 9,
+   "poolSize": 12,
+   "activeIndex": 2,
+   "scribblePhase": "hidden",
+   "flowVelocity": 0.039,
+   "dragVelocity": 0,
+   "springVelocity": 0,
+   "transmissionScale": 0.5,
+   "threeRevision": "178",
+   "busy": {
+    "dragging": false,
+    "pointerActive": false,
+    "inertia": false,
+    "settleSpring": false,
+    "flow": true,
+    "tween": false,
+    "residual": true,
+    "forceFrames": false,
+    "scribble": false
+   }
+  }
+ }
+]

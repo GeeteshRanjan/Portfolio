@@ -1,0 +1,504 @@
+[
+  {
+    "slug": "about-me",
+    "href": "/about",
+    "title": "About Me",
+    "category": "Introduction",
+    "year": "Since 2023",
+    "metadata": [
+      {
+        "label": "Name",
+        "value": "Geetesh Ranjan"
+      },
+      {
+        "label": "Role",
+        "value": "Marketing & Product"
+      },
+      {
+        "label": "Based in",
+        "value": "Bengaluru, India"
+      },
+      {
+        "label": "Now",
+        "value": "ANSR Global"
+      }
+    ],
+    "palette": {
+      "base": "#ece6d8",
+      "accent": "#b9ad94",
+      "ink": "#1a1814"
+    },
+    "description": ""
+  },
+  {
+    "slug": "gcc-atlas",
+    "title": "GCC Atlas",
+    "note": "Project Built for ANSR",
+    "subtitle": "Benchmark your India GCC against your peers",
+    "category": "Web App",
+    "year": "2026",
+    "metadata": [
+      {
+        "label": "Role",
+        "value": "Design and development"
+      },
+      {
+        "label": "Company",
+        "value": "ANSR"
+      },
+      {
+        "label": "Type",
+        "value": "Self-serve research tool"
+      },
+      {
+        "label": "Stack",
+        "value": [
+          "Next.js",
+          "TypeScript",
+          "Tailwind CSS",
+          "shadcn/ui",
+          "Zod",
+          "Playwright",
+          "Vitest"
+        ]
+      },
+      {
+        "label": "Platform",
+        "value": "Web, embedded on ansr.com"
+      }
+    ],
+    "description": "A self-serve tool that shows enterprise leaders how comparable companies run their India Global Capability Centres.\n\n## The Idea\n\nI wanted to build a prospect-facing tool that could turn a few basic company inputs into a relevant view of the Indian GCC landscape, showing which peers are already operating in India and where India could support the company’s own functions.\n\nThis took shape as a working product that brought together the research structure, benchmarking framework and overall experience.\n\n## The Thinking\n\nThe tool needed to make existing GCC intelligence more specific to the company exploring it. Instead of presenting the same market view to every visitor, it would use the company’s own context to answer two practical questions:\n\n> Which companies similar to us are already operating in India?\n> Which functions could India support for our organisation?\n\n## Getting the Matching Right\n\nDefining what genuinely makes two companies peers became one of the most interesting product challenges. Industry alone was too broad, while revenue alone could group companies that looked similar in size but operated very differently.\n\nThe matching framework combines both factors, giving 70% weight to business similarity and 30% to revenue proximity. Business similarity is calculated using 138 weighted tags across sub-industries. A minimum similarity threshold ensures that two companies must first be meaningfully related as businesses before company size can influence the match.\n\nThis required connecting different datasets and determining how a small number of company inputs could produce relevant comparisons. The result was a matching system designed to be useful in context, not simply statistically close.",
+    "links": [
+      {
+        "label": "Live",
+        "href": "https://gcc-landscape.vercel.app"
+      }
+    ],
+    "game": {
+      "label": "Try it",
+      "src": "https://gcc-landscape.vercel.app/",
+      "title": "GCC Atlas",
+      "poster": "/images/gcc-atlas-poster.jpg",
+      "prompt": "Click to try it",
+      "viewport": 900
+    },
+    "image": "/images/gcc-atlas-disc.jpg",
+    "heroImage": "/images/gcc-atlas-disc.jpg",
+    "art": {
+      "title": true,
+      "titleText": "GCC ATLAS"
+    },
+    "palette": {
+      "base": "#08252F",
+      "accent": "#007B74",
+      "ink": "#FFFFFF"
+    },
+    "logo": {
+      "src": "/logos/ansr-light.svg",
+      "y": 0.14,
+      "width": 0.2
+    }
+  },
+  {
+    "slug": "ansrcade",
+    "title": "ANSRcade: The GCC Game",
+    "note": "Project Built for ANSR",
+    "subtitle": "A 90-second playable explainer for building an India GCC",
+    "category": "Game",
+    "year": "2026",
+    "metadata": [
+      {
+        "label": "Role",
+        "value": "Design & development"
+      },
+      {
+        "label": "Company",
+        "value": "ANSR"
+      },
+      {
+        "label": "Type",
+        "value": "Embeddable browser game"
+      },
+      {
+        "label": "Stack",
+        "value": [
+          "TypeScript",
+          "HTML5 Canvas 2D",
+          "Web Audio API",
+          "Vite",
+          "Vitest",
+          "Vercel"
+        ]
+      },
+      {
+        "label": "Platform",
+        "value": "Desktop and mobile web"
+      }
+    ],
+    "description": "An 8-bit platformer that turns the hidden friction of building a Global Capability Centre in India into something prospects can experience for themselves.\n\n## The Idea\n\nBuilding a Global Capability Centre involves a web of interconnected challenges, from compliance approvals to hiring and operational setup. In a slide deck, these can appear like simple, sequential steps. In reality, the challenges are connected, and friction in one area can quickly affect everything that follows.\n\n## Why a Game?\n\nThe idea was to turn that hidden friction into something prospects could experience before beginning the real journey. Instead of explaining the challenges through another presentation, the game lets players encounter them through its obstacles, decisions and trade-offs.\n\nThe experience was intended to be short enough for casual discovery, but meaningful enough to create interest in the larger problem. The goal was not to teach players everything about building a GCC, but to make the cost of navigating it without the right support easier to understand.\n\n## How It Works\n\nThe experience is a retro-style platformer spanning six short levels. Familiar gaming obstacles are mapped to real GCC setup challenges, exaggerated enough to remain playful but still rooted in genuine business friction.\n\nThe gameplay structure, obstacle mapping and power-up logic were all shaped around translating a complex business proposition into mechanics, consequences and play.\n\nANSR’s role is built into those mechanics rather than added as a traditional sales message. Power-ups represent different forms of support, showing how the right intervention changes the way a player handles an obstacle. This allows the player to feel the difference between navigating the journey alone and having the right support.\n\nAt the end, the player receives a “receipt” showing the time lost across the journey. This creates a natural transition from the fictional experience to ANSR’s real-world planning tool.\n\n## Tech. behind it\n\nBeyond the gameplay, the experience needed to remain lightweight, accessible and easy to distribute. Its visuals and audio are generated programmatically, keeping the entire game to just 82 KB gzipped.\n\nThe experience is WCAG 2.2 AA compliant, collects no personal data and can be used across the website, event activations and campaign journeys without relying on heavy asset files or a complex setup.",
+    "links": [
+      {
+        "label": "Live",
+        "href": "https://ansrcade.vercel.app"
+      },
+      {
+        "label": "Code",
+        "href": "https://github.com/GeeteshRanjan/beam-run"
+      }
+    ],
+    "game": {
+      "label": "Play",
+      "src": "https://ansrcade.vercel.app/",
+      "title": "ANSRcade: The GCC Game",
+      "poster": "/images/ansrcade-poster.jpg",
+      "keys": [
+        "Move: ← → / A D",
+        "Jump: Space / ↑ / W",
+        "Shoot: ↓ / F / J",
+        "Pause: P / Esc",
+        "Mute: M"
+      ]
+    },
+    "image": "/images/ansrcade-disc.png",
+    "heroImage": "/images/ansrcade-disc.png",
+    "palette": {
+      "base": "#00242E",
+      "accent": "#F05722",
+      "ink": "#E6E6E6"
+    },
+    "logo": {
+      "src": "/logos/ansr-light.svg",
+      "y": 0.86,
+      "width": 0.2
+    }
+  },
+  {
+    "slug": "abm-email-automation",
+    "title": "ABM Email Automation",
+    "note": "Project Built for ANSR",
+    "category": "Automation",
+    "year": "2026",
+    "metadata": [
+      {
+        "label": "Role",
+        "value": "Workflow design and build"
+      },
+      {
+        "label": "Company",
+        "value": "ANSR"
+      },
+      {
+        "label": "Type",
+        "value": "AI-assisted outbound workflow"
+      },
+      {
+        "label": "Status",
+        "value": "In testing, human-reviewed"
+      },
+      {
+        "label": "Stack",
+        "value": [
+          "n8n",
+          "Clay",
+          "Apollo",
+          "Instantly"
+        ]
+      }
+    ],
+    "description": "An AI-assisted workflow for account research, prospect enrichment and outbound campaign preparation.\n\n## Why It Was Needed\n\nAccount research and outreach preparation involved moving between multiple tools to understand a company, identify relevant prospects, find useful business signals and prepare personalised messaging. The work was valuable, but much of the time went into gathering and organising information before the actual outreach could begin.\n\n## How it works\n\nThe idea was to bring those disconnected steps into one AI-assisted workflow for account research, prospect enrichment and outbound campaign preparation.\n\nRather than automating outreach itself, the aim was to reduce the manual work behind it while preserving human review and judgement before anything moved into a campaign.\n\n## Inside the Workflow\n\nCompany and prospect data are gathered from multiple sources, enriched through research workflows and consolidated into a structured account view.\n\nThe system then analyses company priorities, recent developments, leadership context and relevant business signals to identify potential outreach angles. These insights are used to prepare draft emails, which go through quality checks and human review before they are considered ready for campaign preparation.\n\nThe research methodology, enrichment logic, messaging structure and quality controls were built as connected parts of the same workflow. This ensures that the messaging is based on the research collected for that account rather than generated as a separate, generic step.\n\n## Impact\n\nThe workflow brings account research, prospect enrichment, signal detection, messaging generation and quality checks into one connected process.\n\nInformation that previously required several tools and 8–16 hours of manual preparation can now be brought together in 1–2 hours, leaving more time to review the research, improve the messaging and decide which accounts are worth prioritising.\n\n## Infrastructure\n\n- Research: Sales Navigator · Apollo · Prospeo · Clay\n- Automation: n8n · Excel\n- Outreach: Instantly · Zapmail\n- AI: Custom prompting workflows · Research and messaging logic · Quality control framework",
+    "logo": {
+      "src": "/logos/ansr-mono.svg",
+      "y": 0.14,
+      "width": 0.2
+    },
+    "image": "/images/abm-email-automation-disc.svg",
+    "art": {
+      "title": true
+    },
+    "palette": {
+      "base": "#FF5400",
+      "accent": "#005465",
+      "ink": "#FFFFFF"
+    }
+  },
+  {
+    "slug": "ansr-work",
+    "title": "Demand Generation Specialist",
+    "note": "ANSR Workex",
+    "panelTitle": "ANSR",
+    "category": "Systems",
+    "year": "2026",
+    "metadata": [
+      {
+        "label": "Role",
+        "value": "Demand Generation & AI Products"
+      },
+      {
+        "label": "Tenure",
+        "value": "Since 2026"
+      },
+      {
+        "label": "Scope",
+        "value": "ABM · Product"
+      },
+      {
+        "label": "Company",
+        "value": "ANSR Global"
+      },
+      {
+        "label": "Systems",
+        "value": "Outreach automation"
+      },
+      {
+        "label": "Utilities",
+        "value": "Internal marketing tools"
+      },
+      {
+        "label": "Side projects",
+        "value": "4 delivered"
+      }
+    ],
+    "description": "I joined ANSR with a background in ABM.\n\nThe GCC industry introduced me to a different kind of growth environment. Buying cycles were longer, stakeholders were more senior and earning attention required a much stronger business case than conventional outreach.\n\nMy work focused on finding credible paths into those conversations. That meant researching global companies, understanding their business priorities and translating those insights into outreach, partnerships, campaigns and executive engagements.\n\nOver time, that work helped create opportunities to engage organisations including Prologis, IndusInd Bank, DBS Bank, Antal, DSV and Nasdaq Private Market. More importantly, it taught me how enterprise decisions are made, who influences them and what separates a message that gets ignored from one that starts a conversation.\n\nRepeatedly working through research, messaging and campaign execution also exposed the inefficiencies behind them. That curiosity led me into ANSR’s first Forward Deployed Specialist cohort, where I began building AI-powered tools and automation systems to support campaign execution, team productivity and prospect engagement.\n\nToday, my role sits between go-to-market execution and product building. I still think about prospects, campaigns and pipeline, but I now spend much of my time creating the systems, tools and experiences that make those efforts more effective.\n\n## Highlights\n\n- Engaged enterprise organisations including Prologis, DSV, IndusInd Bank, DBS Bank, Antal and Nasdaq Private Market.\n- Contributed to account-based campaigns, partnerships and executive engagements.\n- Selected for ANSR’s first Forward Deployed Specialist cohort.\n- Built AI-powered systems for research, outreach and productivity.\n- Reduced research and outbound preparation from 8–16 hours to 1–2 hours.\n- Developed interactive tools supporting GCC evaluation and engagement.\n- Bridging go-to-market execution and product development.",
+    "palette": {
+      "base": "#4169E1",
+      "accent": "#005465",
+      "ink": "#FFFFFF"
+    },
+    "logo": {
+      "src": "/logos/ansr-light.svg"
+    }
+  },
+  {
+    "slug": "gys-marketing",
+    "title": "Marketing Associate",
+    "note": "GrowYourStaff Workex",
+    "panelTitle": "GrowYourStaff",
+    "category": "B2B Marketing",
+    "year": "2025",
+    "metadata": [
+      {
+        "label": "Role",
+        "value": "Marketing Associate"
+      },
+      {
+        "label": "Tenure",
+        "value": "2025"
+      },
+      {
+        "label": "Scope",
+        "value": "ABM · Paid · Web"
+      },
+      {
+        "label": "Company",
+        "value": "GrowYourStaff"
+      },
+      {
+        "label": "Outcome",
+        "value": "2× response rates"
+      },
+      {
+        "label": "Team",
+        "value": "15 outreach associates"
+      }
+    ],
+    "description": "By this point, I had spent enough time around campaigns and outreach to realise that most marketing teams eventually end up solving the same problem in different disguises:\n\nFinding the right people and giving them a reason to reply. GrowYourStaff gave me plenty of opportunities to work on exactly that.\n\nMy work sat somewhere between research, outreach, conversion and process building. I spent my time identifying target accounts, refining outreach sequences, experimenting with messaging and figuring out how to move conversations from a spreadsheet to an actual sales pipeline.\n\nThe role also pulled me closer to the mechanics behind lead qualification. I worked on lead-scoring frameworks, nurturing workflows and funnel improvements, which sounds considerably more organised than it often felt at the time. Most of the progress came from testing small changes, paying attention and occasionally admitting that a “great idea” was only great because nobody had measured it yet.\n\nIt also gave me my first experience managing people. I led a team of 15 part-time outreach associates, coordinating outreach, refining messaging and helping keep everyone pointed in roughly the same direction. It quickly taught me that getting buy-in from people is very different from building a process that looks good on a whiteboard.\n\nThis was also where I ran my first LinkedIn advertising campaigns as part of broader account-based marketing efforts. I built them from scratch, writing the copy, creating audience and creative variations, and gradually shifting the budget towards whatever earned the right to remain funded. It was part experimentation, part pattern recognition and part accepting that the market is usually far less attached to your favourite ad than you are.\n\nOne project took me slightly outside my job description. The company needed a new website, and the original plan was to find someone to build it. Inspired by several years of studying computer science and a perhaps unjustified amount of confidence, I volunteered to take it on myself. With generous assistance from modern AI tools and an unhealthy number of browser tabs, I designed and built what eventually became the company’s website.\n\nThat grew into something larger. I was entrusted with helping launch two new business verticals from the ground up: Zenvve and the company’s Bookkeeping Services offering. Beyond building their websites, I supported the positioning, messaging and marketing needed to take entirely new offerings into the market. Building something new is very different from optimising something that already exists. There are fewer benchmarks, fewer answers and significantly more guesswork disguised as strategy.\n\nAltogether, it became the largest thing I had built. I learnt enough about design, development and stakeholder feedback to develop a healthy respect for people who do it professionally, and for how many opinions moving a button three pixels to the left can produce.\n\nAcross everything, the common thread remained surprisingly consistent: understanding what made someone pay attention and making the next step feel obvious.\n\n## Highlights\n\n- Managed a team of 15 part-time outreach associates\n- Helped double campaign response rates through improved outreach and nurturing workflows\n- Built and optimised LinkedIn account-based marketing campaigns\n- Designed and built the company website\n- Launched Zenvve and Bookkeeping Services as new business verticals\n- Learnt that moving a button three pixels can produce a surprising number of professional opinions",
+    "previews": [
+      {
+        "label": "GrowYourStaff",
+        "href": "https://www.growyourstaff.com/",
+        "image": "/images/gys-site.png",
+        "alt": "GrowYourStaff homepage: “Hire top talent in India and reduce costs by up to 65%”"
+      },
+      {
+        "label": "Zenvve",
+        "href": "https://zenvve.com/",
+        "image": "/images/zenvve-site.png",
+        "alt": "Zenvve homepage: “Scale your LinkedIn outreach without limits”"
+      }
+    ],
+    "palette": {
+      "base": "#0F0F0F",
+      "accent": "#F40000",
+      "ink": "#FFFFFF"
+    },
+    "logo": {
+      "src": "/logos/growyourstaff-mono.svg"
+    }
+  },
+  {
+    "slug": "wizar-gtm",
+    "title": "Consultant (Freelance)",
+    "note": "Side hustle",
+    "panelTitle": "Wizar Learning",
+    "category": "Strategy",
+    "year": "2024–25",
+    "metadata": [
+      {
+        "label": "Role",
+        "value": "Marketing Consultant"
+      },
+      {
+        "label": "Tenure",
+        "value": "2024–25"
+      },
+      {
+        "label": "Scope",
+        "value": "Positioning to launch"
+      },
+      {
+        "label": "Company",
+        "value": "Wizar Learning"
+      },
+      {
+        "label": "Products",
+        "value": "4"
+      },
+      {
+        "label": "Markets",
+        "value": "India · UAE · Africa · N. America"
+      }
+    ],
+    "detour": {
+      "label": "A Small Detour",
+      "paragraphs": [
+        "Around this time, I had stepped away from the startup world and was working with Jharkhand Jyoti, an NGO focused on education and social impact.",
+        "The work was meaningful and refreshingly different from growth dashboards, quarterly targets and conversations about acquisition costs.",
+        "At the same time, I wasn’t quite ready to let go of the part of marketing that had pulled me in to begin with. Wizar became my way of staying connected to products, markets and the challenge of getting complete strangers to care about something they had never heard of ten minutes earlier."
+      ]
+    },
+    "description": "## Marketing Consultant (Freelance)\n\nWizar gave me a front-row seat to a problem I found surprisingly interesting.\n\nThe same product could need a completely different story depending on where in the world you were telling it. Wizar worked across India, the UAE, Africa and North America, and each market had its own buyers, budgets and way of making decisions. A message that resonated with a school in India would not necessarily work for an educator in North America or a partner in Africa.\n\nI worked across market research, account discovery, outreach and partner-facing communication, helping introduce different offerings across multiple regions.\n\nAlong the way, I contributed to website revamps, product presentations, email sequences, Amazon listings and sales collateral. Different formats, same challenge: figuring out what mattered to people before explaining why it should matter to them.\n\n## Highlights\n\n- Supported product launches across India, the UAE, Africa and North America\n- Built regional account-discovery and outreach workflows\n- Worked on positioning, messaging and partner communication\n- Revamped presentations, email sequences, website content and Amazon listings\n- Learnt that “global marketing” usually means every market reading the same brief and interpreting it differently",
+    "palette": {
+      "base": "#0084FF",
+      "accent": "#000000",
+      "ink": "#FAFBFF"
+    },
+    "logo": {
+      "src": "/logos/wizar-light.svg",
+      "width": 0.32
+    }
+  },
+  {
+    "slug": "squadstack-abm",
+    "title": "ABM Associate",
+    "note": "SquadStack Workex",
+    "panelTitle": "SquadStack",
+    "category": "Account-Based Marketing",
+    "year": "2023–24",
+    "metadata": [
+      {
+        "label": "Role",
+        "value": "Account Based Marketing Associate"
+      },
+      {
+        "label": "Tenure",
+        "value": "2023–24"
+      },
+      {
+        "label": "Scope",
+        "value": "Research to conversion"
+      },
+      {
+        "label": "Company",
+        "value": "SquadStack"
+      },
+      {
+        "label": "Sectors",
+        "value": "Finance · Banking · Fintech"
+      }
+    ],
+    "description": "What happens when, instead of reaching thousands of people, you focus on a handful of accounts that could change the trajectory of the business?\n\nThat curiosity pulled me into account-based marketing.\n\nThe work felt more like detective work. I spent my time researching companies, understanding industries, mapping stakeholders and figuring out why a conversation should happen long before actually starting one. Turns out “lead generation” sounds much simpler than it feels when every account has a different definition of value.\n\nI worked across market research, prospecting, nurturing and conversion, focusing primarily on financial institutions, banks and fintech companies. The conversations were longer, the sales cycles slower, and there was nowhere to hide behind large numbers or impressive impression counts.\n\nThe most rewarding part was seeing all the pieces come together. A well-timed introduction, a useful insight or a carefully researched outreach sequence could eventually turn into a partnership that opened entirely new opportunities for the business.\n\nSomewhere along the way, the team delivered its strongest quarter to date. I contributed by helping build relationships with high-value accounts and expanding our presence across financial services.\n\n## Highlights\n\n- HubSpot, LinkedIn Sales Navigator and LeadIQ\n- Built and managed outreach across email, LinkedIn and calls\n- Focused on high-value banking, financial services and fintech accounts\n- Contributed to the team’s strongest-performing quarter at the time\n- Helped turn targeted outreach into strategic partnerships\n- Learnt that a target-account list is really a list of people whose inboxes are already overcrowded",
+    "palette": {
+      "base": "#191132",
+      "accent": "#6F39F5",
+      "ink": "#AA8EF2"
+    },
+    "logo": {
+      "src": "/logos/squadstack-light.svg",
+      "width": 0.42
+    }
+  },
+  {
+    "slug": "squadstack-acquisition",
+    "title": "Marketing Associate",
+    "note": "SquadStack Workex",
+    "panelTitle": "SquadStack",
+    "category": "Growth",
+    "year": "2023–24",
+    "metadata": [
+      {
+        "label": "Role",
+        "value": "Marketing Associate"
+      },
+      {
+        "label": "Tenure",
+        "value": "2023–24"
+      },
+      {
+        "label": "Scope",
+        "value": "Acquisition to retention"
+      },
+      {
+        "label": "Company",
+        "value": "SquadStack"
+      },
+      {
+        "label": "Channels",
+        "value": "Social, content and paid"
+      }
+    ],
+    "description": "Turns out understanding attention is one thing. Being responsible for it is another. ((For context, read the internship section.))\n\nMoving into a full-time role meant becoming responsible for what happened after someone clicked, signed up or decided to stick around. Conveniently, marketing had numbers for all of it.\n\nI spent a lot of time in Google Analytics, advertising platforms and spreadsheets, trying to understand user behaviour and occasionally test my own assumptions. ((The data challenged some of them. Annoyingly, not enough.))\n\nThis was where I ran my first serious paid campaigns and experienced the strange mix of excitement and panic that comes with seeing growth happen faster than anyone planned for. More importantly, it was where I learned that growth rarely comes from a single campaign, no matter how much marketers would like it to. At one point, campaigns, product improvements and team-wide efforts came together around the same goal. It was also the first time I saw what happens when marketing, product and operations are aligned around it.\n\nI also got the chance to lead a CSR initiative in partnership with IIM Ahmedabad. It started as a campaign and turned into something much more interesting: users engaged more deeply with the platform because they felt connected to what the company was trying to do beyond business metrics.\n\nAround this time, I stopped seeing marketing as something that operated independently, the reason being that problems did not arrive neatly labelled. Sometimes they appeared in a campaign dashboard, sometimes in a product flow, a piece of copy or a user journey that had worked well enough for long enough that nobody questioned it anymore.\n\n## Highlights\n\n- Google Analytics 4, Google Ads and Meta Ads\n- Paid campaigns reaching 2M+ impressions ((I don’t remember the other metrics, so I can’t really mention them :)))\n- Contributed to growth initiatives that doubled the user base within a week\n- Tested new acquisition channels\n- Led a CSR initiative with IIM Ahmedabad\n- Worked across campaign, product and user-journey improvements",
+    "palette": {
+      "base": "#6F39F5",
+      "accent": "#191132",
+      "ink": "#FFFFFF"
+    },
+    "logo": {
+      "src": "/logos/squadstack-light.svg",
+      "width": 0.42
+    }
+  },
+  {
+    "slug": "squadstack-internship",
+    "title": "Marketing Intern",
+    "note": "SquadStack Workex",
+    "panelTitle": "SquadStack",
+    "category": "Marketing",
+    "year": "2023",
+    "metadata": [
+      {
+        "label": "Role",
+        "value": "Marketing Intern"
+      },
+      {
+        "label": "Tenure",
+        "value": "2023"
+      },
+      {
+        "label": "Scope",
+        "value": "Content to onboarding"
+      },
+      {
+        "label": "Company",
+        "value": "SquadStack"
+      },
+      {
+        "label": "Work",
+        "value": "Content · Campaigns · Offline · Onboarding"
+      }
+    ],
+    "description": "My first real introduction to marketing outside classrooms and LinkedIn advice.\n\nI worked across content, campaigns, product communication and onboarding, helping shape how people discovered, understood and interacted with the product. The channels varied, but the challenge rarely did: explain something clearly enough that people don’t need a second explanation.\n\nThe experience changed how I think about marketing. I started out believing the job was mostly about coming up with ideas. By the end, I realised the harder part is making those ideas understandable, useful and worth someone’s attention in the first place.",
+    "coda": [
+      "A less glamorous lesson than I’d hoped for.",
+      "Probably a more useful one."
+    ],
+    "palette": {
+      "base": "#AA8EF2",
+      "accent": "#6F39F5",
+      "ink": "#191132"
+    },
+    "logo": {
+      "src": "/logos/squadstack-dark.svg",
+      "width": 0.42
+    }
+  }
+]
